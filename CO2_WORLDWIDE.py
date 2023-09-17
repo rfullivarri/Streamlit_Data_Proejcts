@@ -24,10 +24,10 @@ email_address= "rfullivarri22@gmail.com"
 
 
 #CSS
-# def local_css(file_name):
-#     with open(file_name) as f:
-#         st.markdown(f"<style>{f.read()}</style>", unsafe_allow_html=True)
-# local_css("style/main2.css")
+def local_css(file_name):
+    with open(file_name) as f:
+        st.markdown(f"<style>{f.read()}</style>", unsafe_allow_html=True)
+local_css("Styles/co2ww.css")
 
 #Menu
 def on_change(key):
@@ -44,9 +44,12 @@ selected5 = option_menu(None, ["Home", "Data & Insight", 'About Me', 'Contact Me
 #HOME
 def Home():
     home= st.container()
-    home.title("CO2 WORDLWIDE ANALSIIS 🦾")
-    home.header("Analsis sobre la emision de CO2 de cada pais a lo largo del tiempo")
-    home.write("Con datos dede 1990 hasta 2023")
+    home.title("CO2 WORDLWIDE ANALSIS 🌎")
+    home.header("Analisis sobre la emision de CO2 de cada pais a lo largo del tiempo")
+    home.write("""En CO2 WORLDWIDE, nuestro objetivo principal es comprender la situación 
+               actual del dióxido de carbono en todo el mundo y destacar su importancia mediante 
+               datos y análisis sólidos. Nos sumergimos en el fascinante mundo de los datos para revelar 
+               patrones y tendencias que arrojarán luz sobre la problemática del CO2.""")
     #home.write("[Saber Mas >]")
     home.write("---")
 
@@ -55,10 +58,16 @@ def Home():
     valor1, valor2, valor3 = st.columns(3)
     with valor1:
         st.header("Analisis👩‍💻")
-        st.write("""Que queremos analizar""")
+        st.write("""Nuestro análisis de datos comenzará con una exploración exhaustiva 
+                 del conjunto de datos, identificando su tamaño y las variables
+                 más relevantes""")
     with valor2:
         st.header("Insights✨")
-        st.write("""Que vamos a sacar como conclusion""")
+        st.write("""nos sumergiremos en el mundo de la correlación para comprender
+                  las interacciones dentro de los datos. A continuación, emplearemos 
+                 gráficos impactantes para ilustrar los datos y obtener conocimientos profundos. 
+                 En cada etapa, te proporcionaremos códigos de Python y las librerias que utilice
+                para que puedas seguir y aprender junto a nosotros.""")
     with valor3:
         st.header("Algo mas🤲")
         st.write("""como mostrarlo""")
