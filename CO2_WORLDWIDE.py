@@ -45,8 +45,9 @@ selected5 = option_menu(None, ["Home", "Data & Insight", 'About Me', 'Contact Me
 #HOME
 def Home():
     home= st.container()
-    home.title("CO2 WORDLWIDE ANALSIS 🌎")
-    home.header("Analisis sobre la emision de CO2 de cada pais a lo largo del tiempo")
+    home.markdown("<h1 style='text-align: center; font-size: 80px;'>CO2 WORLDWIDE ANALYSIS 🌎</h1>", unsafe_allow_html=True)
+    #home.title("CO2 WORDLWIDE ANALSIS 🌎")
+    home.header("Analisis sobre la emision de CO2")
     descripcion="""En CO2 WORLDWIDE, nos embarcamos en la misión de explorar la situación
                 actual del dióxido de carbono en todo el mundo, un gas que afecta directamente
                 a nuestro planeta. Con la mira puesta en la increíble cifra de más de 40 mil millones
@@ -92,7 +93,9 @@ def Home():
 
     st.write("---")
     datos =st.container()
-    datos.title("Como vamos a hacerlo 📊")
+    datos.markdown("<h1 style='text-align: center; font-size: 60px;'>Como vamos a hacerlo 📊</h1>", unsafe_allow_html=True)
+    #datos.title("Como vamos a hacerlo 📊")
+    datos.write("##")
     datos1, datos2 = st.columns(2)
     with datos1:
         #st.empty()
@@ -126,7 +129,12 @@ def Data_Insight():
         #df = pd.read_csv(uploaded_file)
         df = uploaded_file
         st.dataframe(df)
-        st.write(""" """)
+        st.write(""" Estos son los datos mas relevantes de la BD """)
+        #Countrys
+        st.metric(label="Countrys", value=str(len(df["Country"].unique())))
+        #CO2 (mT)
+        Co2_2023=df["Co2-Emissions 2023.1"].str.replace(",","").astype("int")
+        st.metric(label="CO2 (Tn) in 2023", value=str(Co2_2023.sum()))
         # category= df["Category"].unique()
         # subcategory= df["Subcategory"].unique()
         # #action= df["Action"].isin(["off","on"])
