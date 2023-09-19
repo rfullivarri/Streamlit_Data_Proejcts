@@ -4,6 +4,7 @@ import streamlit as st
 from  streamlit_lottie import  st_lottie
 from streamlit_option_menu import option_menu
 from  PIL import  Image as Pillow
+import matplotlib.pyplot as plt
 from Data_Analisis_CO2 import data_preparation, data_pre_code
 
 #Set up web
@@ -126,20 +127,17 @@ def Data_Insight():
     values.write("Primero preparamos la DB para que podemos trabajar con ella. Depuramos tipo de datos, comas, puntos y simbolos ($,%,& ect)")
     with values.expander("Ver Codigo de preparacion de DB"):
         code_style = """
-            <style>
-            .stApp pre {
-                background-color: #2E2E2E !important; /* Color de fondo oscuro */
-                color: #FFFFFF !important; /* Color del texto blanco */
-            }
+            <style>.stApp pre {background-color: #2E2E2E !important; /* Color de fondo oscuro */
+                    color: #FFFFFF !important; /* Color del texto blanco */}
             </style>
-            """
+                     """
         st.markdown(code_style, unsafe_allow_html=True)
         st.code(data_pre_code,language="python")
     
     values.write("Asi queda la DB lista para usar")
     df= data_preparation()
     st.dataframe(df)
-    st.markdown("<h1 style='text-align: right; font-size: 13px;'>**Los valores None no los necesitamos para este analisis**</h1>", unsafe_allow_html=True)
+    st.markdown("<h1 style='text-align: right; font-size: 13px;'>*Los valores None no los necesitamos para este analisis*</h1>", unsafe_allow_html=True)
 
     st.header(""" Primeros Insights """)
     insight_1, insight_2, insight_3 = st.columns(3)
@@ -154,10 +152,36 @@ def Data_Insight():
         st.markdown(centrar_texto_css, unsafe_allow_html=True)
         #CO2 (mT)
         co2_23= str(round(df["Co2-Emissions 2023"].sum(),1))
-        delta=str(round(df["Co2-Emissions 2023"].sum()-df["Co2-Emissions 2021"].sum(),1))
+        delta=str(round(df["Co2-Emissions 2021"].sum()-df["Co2-Emissions 2023"].sum(),1))
         st.metric(label="**CO2 WORLDWIDE (Tn) in 2023**", value=co2_23, delta=f'{delta} (2021)*')
+
     with insight_3:
         st.empty()
+
+    #HIGH CO2 BY COUNTRY
+    df_co2_23_by_country= (df.sort_values(by="Co2-Emissions 2023",ascending=False)).set_index("Country").head(10)
+    st.dataframe(df_co2_23_by_country)
+
+    plt.figure(figsize=(10, 6))
+    plt.barh(df_co2_23_by_country.index, df_co2_23_by_country["Co2-Emissions 2023"])
+    plt.xlabel("Co2-Emissions 2023")
+    plt.ylabel("Country")
+    plt.gca().invert_yaxis() 
+    plt.savefig("bar_chart.png", bbox_inches="tight")
+    plt.close()
+
+    # 3. Muestra la imagen del gráfico de barras en Streamlit
+    st.image("bar_chart.png", use_container_width=True)
+
+
+
+
+
+
+
+    
+
+    #, """'Co2-Emissions 2012', 'Co2-Emissions 2011','Co2-Emissions 2010', 'Co2-Emissions 2009', 'Co2-Emissions 2008','Co2-Emissions 2007', 'Co2-Emissions 2006', 'Co2-Emissions 2005','Co2-Emissions 2004', 'Co2-Emissions 2003', 'Co2-Emissions 2002','Co2-Emissions 2001', 'Co2-Emissions 2000', 'Co2-Emissions 1999','Co2-Emissions 1998', 'Co2-Emissions 1997', 'Co2-Emissions 1996','Co2-Emissions 1995', 'Co2-Emissions 1994', 'Co2-Emissions 1993','Co2-Emissions 1992', 'Co2-Emissions 1991', 'Co2-Emissions 1990'"""
 
     # category= df["Category"].unique()
     # subcategory= df["Subcategory"].unique()
@@ -200,8 +224,9 @@ def About_Me():
                  las últimas tecnologías que impactan en el mercado, siempre buscando innovaciones 
                  que simplifiquen nuestras vidas y nos conecten de formas más efectivas.
                 """
-        aboutmetext2="""Soy un Ingeniero Industrial y desarrollador de Python con una pasión por 
-                    la innovación y la mejora continua. Estoy emocionado por las oportunidades futuras y 
+        aboutmetext2="""Soy un Ingeniero Industrial enfocado enfocado en el analisis de datos con una pasión por 
+                    la innovación y la mejora continua. Hace mas de un año que ingrese a el mundo apasionante de data analisis 
+                    con Python y la programacion.Estoy emocionado por las oportunidades futuras y 
                     estoy seguro de que mi experiencia y dedicación seguirán impulsando el éxito en los proyectos 
                     venideros."""
         st.markdown(f'<div style="text-align: justify; font-size: 23px">{aboutmetext}</div>',unsafe_allow_html=True)
@@ -237,7 +262,7 @@ def Contact_Me():
     """
     left_column, center_column , right_column = st.columns((1,2,1))
     with center_column:
-        st.header("Ponte en contacto con nosotros!")
+        st.header("Dejame tus comentarios!")
         st.write("##")
         st.markdown(contact_form, unsafe_allow_html=True)
     with right_column:

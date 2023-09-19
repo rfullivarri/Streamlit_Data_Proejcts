@@ -21,9 +21,9 @@ def data_preparation():
            'Minimum wage', 'Out of pocket health expenditure',
            'Physicians per thousand', 'Population',
            'Population: Labor force participation (%)', 'Tax revenue (%)',
-           'Total tax rate', 'Unemployment rate', 'Urban_population', 'Latitude',
-           'Longitude', 'Co2-Emissions 2021', 'Co2-Emissions 2020',
-           'Co2-Emissions 2019', 'Co2-Emissions 2018', 'Co2-Emissions 2017',
+           'Total tax rate', 'Unemployment rate', 'Urban_population',
+           'Co2-Emissions 2021', 'Co2-Emissions 2020','Co2-Emissions 2019', 
+           'Co2-Emissions 2018', 'Co2-Emissions 2017',
            'Co2-Emissions 2016', 'Co2-Emissions 2015', 'Co2-Emissions 2014',
            'Co2-Emissions 2013', 'Co2-Emissions 2012', 'Co2-Emissions 2011',
            'Co2-Emissions 2010', 'Co2-Emissions 2009', 'Co2-Emissions 2008',
@@ -34,6 +34,17 @@ def data_preparation():
            'Co2-Emissions 1995', 'Co2-Emissions 1994', 'Co2-Emissions 1993',
            'Co2-Emissions 1992', 'Co2-Emissions 1991', 'Co2-Emissions 1990']
 
+    co2_columns= ['Co2-Emissions 2023','Co2-Emissions 2021', 'Co2-Emissions 2020',
+           'Co2-Emissions 2019', 'Co2-Emissions 2018', 'Co2-Emissions 2017',
+           'Co2-Emissions 2016', 'Co2-Emissions 2015', 'Co2-Emissions 2014',
+           'Co2-Emissions 2013', 'Co2-Emissions 2012', 'Co2-Emissions 2011',
+           'Co2-Emissions 2010', 'Co2-Emissions 2009', 'Co2-Emissions 2008',
+           'Co2-Emissions 2007', 'Co2-Emissions 2006', 'Co2-Emissions 2005',
+           'Co2-Emissions 2004', 'Co2-Emissions 2003', 'Co2-Emissions 2002',
+           'Co2-Emissions 2001', 'Co2-Emissions 2000', 'Co2-Emissions 1999',
+           'Co2-Emissions 1998', 'Co2-Emissions 1997', 'Co2-Emissions 1996',
+           'Co2-Emissions 1995', 'Co2-Emissions 1994', 'Co2-Emissions 1993',
+           'Co2-Emissions 1992', 'Co2-Emissions 1991', 'Co2-Emissions 1990']
     #SACO COMAS % Y SIGNO $ PARA PODER MANIPULAR LA BD
     comma_cols=[]
     percent_cols=[]
@@ -61,13 +72,38 @@ def data_preparation():
     #CONVIERTO TODAS LAS COLUMNAS NUMERICAS EN DATO NUMERICO
     for i in num_columns:
         df[str(i)] = pd.to_numeric(df[str(i)], errors='coerce')
+    
+    for c in co2_columns:
+        df[str(c)]= df[str(c)]/100
+    
+    
 
     # for col in df.columns:
     #     print(col,"  ",df[str(col)][1],"  ",df[str(col)].dtype)
     return(df)
 # dfi= data_preparation()
 # co2_23= dfi["Co2-Emissions 2021"].sum()
-# print(round(co2_23,1))
+#print(round(co2_23,1))
+
+#HIGH CO2 BY COUNTRY
+# df_co2_23_by_country= dfi.sort_values(by="Co2-Emissions 2023",ascending=False)
+# print(df_co2_23_by_country[["Country","Co2-Emissions 2023",'Co2-Emissions 2021','Co2-Emissions 2020',
+#                             'Co2-Emissions 2019', 'Co2-Emissions 2018', 'Co2-Emissions 2017',
+#                             'Co2-Emissions 2016', 'Co2-Emissions 2015', 'Co2-Emissions 2014',
+#                             'Co2-Emissions 2013', 'Co2-Emissions 2012', 'Co2-Emissions 2011',
+#                             'Co2-Emissions 2010', 'Co2-Emissions 2009', 'Co2-Emissions 2008',
+#                             'Co2-Emissions 2007', 'Co2-Emissions 2006', 'Co2-Emissions 2005',
+#                             'Co2-Emissions 2004', 'Co2-Emissions 2003', 'Co2-Emissions 2002',
+#                             'Co2-Emissions 2001', 'Co2-Emissions 2000', 'Co2-Emissions 1999',
+#                             'Co2-Emissions 1998', 'Co2-Emissions 1997', 'Co2-Emissions 1996',
+#                             'Co2-Emissions 1995', 'Co2-Emissions 1994', 'Co2-Emissions 1993',
+#                             'Co2-Emissions 1992', 'Co2-Emissions 1991', 'Co2-Emissions 1990']].head(10))
+
+
+#print(dfi[["Country","Co2-Emissions 2023","Co2-Emissions 2021"]].head(60))
+
+
+
 
 
 
@@ -78,18 +114,16 @@ data_pre_code="""
         print(col,"  ",df[str(col)][1],"  ",df[str(col)].dtype)
 
     #GENERO UNA VARIABLE CON LAS COLUMNAS A CONVERTIR EN NUMERO
-    num_columns= ['Density (P/Km2)', 'Agricultural Land( %)',
-           'Land Area(Km2)', 'Armed Forces size', 'Birth Rate', 'Calling Code',
-           'Co2-Emissions 2023', 'CPI', 'CPI Change (%)',
-           'Fertility Rate', 'Forested Area (%)',
-           'Gasoline Price', 'GDP', 'Gross primary education enrollment (%)',
-           'Gross tertiary education enrollment (%)', 'Infant mortality',
-           'Life expectancy', 'Maternal mortality ratio',
-           'Minimum wage', 'Out of pocket health expenditure',
-           'Physicians per thousand', 'Population',
-           'Population: Labor force participation (%)', 'Tax revenue (%)',
-           'Total tax rate', 'Unemployment rate', 'Urban_population', 'Latitude',
-           'Longitude', 'Co2-Emissions 2021', 'Co2-Emissions 2020',
+    num_columns= ['Density (P/Km2)', 'Agricultural Land( %)','Land Area(Km2)', 'Armed Forces size', 'Birth Rate', 
+                'Calling Code','Co2-Emissions 2023', 'CPI', 'CPI Change (%)','Fertility Rate', 'Forested Area (%)',
+                'Gasoline Price','GDP', 'Gross primary education enrollment (%)','Gross tertiary education enrollment (%)', 
+                'Infant mortality','Life expectancy', 'Maternal mortality ratio','Minimum wage','Tax revenue (%)',
+                'Out of pocket health expenditure','Physicians per thousand', 'Population','Total tax rate',
+                'Population: Labor force participation (%)', 'Unemployment rate','Urban_population', 'Latitude','Longitude', 
+                'Co2-Emissions 2021','Co2-Emissions 2020','Co2-Emissions 2019', 'Co2-Emissions 2018', 'Co2-Emissions 2017',
+                'Co2-Emissions 2016', 'Co2-Emissions 2015', 'Co2-Emissions 2014',...]
+
+    co2_columns= ['Co2-Emissions 2023','Co2-Emissions 2021', 'Co2-Emissions 2020',
            'Co2-Emissions 2019', 'Co2-Emissions 2018', 'Co2-Emissions 2017',
            'Co2-Emissions 2016', 'Co2-Emissions 2015', 'Co2-Emissions 2014',
            'Co2-Emissions 2013', 'Co2-Emissions 2012', 'Co2-Emissions 2011',
@@ -99,7 +133,7 @@ data_pre_code="""
            'Co2-Emissions 2001', 'Co2-Emissions 2000', 'Co2-Emissions 1999',
            'Co2-Emissions 1998', 'Co2-Emissions 1997', 'Co2-Emissions 1996',
            'Co2-Emissions 1995', 'Co2-Emissions 1994', 'Co2-Emissions 1993',
-           'Co2-Emissions 1992', 'Co2-Emissions 1991', 'Co2-Emissions 1990']
+           'Co2-Emissions 1992', 'Co2-Emissions 1991', 'Co2-Emissions 1990']            
 
     #SACO COMAS % Y SIGNO $ PARA PODER MANIPULAR LA BD
     comma_cols=[]
@@ -129,6 +163,11 @@ data_pre_code="""
     for i in num_columns:
         df[str(i)] = pd.to_numeric(df[str(i)], errors='coerce')
 
+    #DATOS DE CO2 CON LOS DECIMALES CORRECTOS
+    for c in co2_columns:
+        df[str(c)]= df[str(c)]/100
+
+    #CONTROL    
     for col in df.columns:
         print(col,"  ",df[str(col)][1],"  ",df[str(col)].dtype)
 """
