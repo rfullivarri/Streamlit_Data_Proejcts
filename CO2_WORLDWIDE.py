@@ -4,6 +4,7 @@ import streamlit as st
 from  streamlit_lottie import  st_lottie
 from streamlit_option_menu import option_menu
 from  PIL import  Image as Pillow
+from Data_Analisis_CO2 import data_preparation, data_pre_code
 
 #Set up web
 st.set_page_config(page_title="CO2 WORDLWIDE ANALISIS",
@@ -122,35 +123,57 @@ def Home():
 def Data_Insight():
     values =st.container()
     values.title("Data & Insight🚀")
-    values.write("Tabla de datos de la BD")
-    uploaded_file=pd.read_csv(r"DataSets/CO2 WORLD 1990 2023 - World data 23.csv")
-    #uploaded_file = st.file_uploader("Upload an article", type=("csv", "xlm","xlms"))
-    if uploaded_file is not None:
-        #df = pd.read_csv(uploaded_file)
-        df = uploaded_file
-        st.dataframe(df)
-        st.write(""" Estos son los datos mas relevantes de la BD """)
-        #Countrys
-        st.metric(label="Countrys", value=str(len(df["Country"].unique())))
-        #CO2 (mT)
-        Co2_2023=df["Co2-Emissions 2023.1"].str.replace(",","").astype("int")
-        st.metric(label="CO2 (Tn) in 2023", value=str(Co2_2023.sum()))
-        # category= df["Category"].unique()
-        # subcategory= df["Subcategory"].unique()
-        # #action= df["Action"].isin(["off","on"])
-        # action= df["Action"]!= "none"
+    values.write("Primero preparamos la DB para que podemos trabajar con ella. Depuramos tipo de datos, comas, puntos y simbolos ($,%,& ect)")
+    with values.expander("Ver Codigo de preparacion de DB"):
+        code_style = """
+            <style>
+            .stApp pre {
+                background-color: #2E2E2E !important; /* Color de fondo oscuro */
+                color: #FFFFFF !important; /* Color del texto blanco */
+            }
+            </style>
+            """
+        st.markdown(code_style, unsafe_allow_html=True)
+        st.code(data_pre_code,language="python")
+    
+    values.write("Asi queda la DB lista para usar")
+    df= data_preparation()
+    st.dataframe(df)
+    st.markdown("<h1 style='text-align: right; font-size: 13px;'>**Los valores None no los necesitamos para este analisis**</h1>", unsafe_allow_html=True)
 
-        
-        # column_1,column_2 =st.columns(2)
-        # with column_1:
-        #     option1 = st.selectbox('Category',(category))
-        #     st.write('You selected:', option1)
-        # with column_2:
-        #     option2 = st.selectbox('Subcategory',(subcategory))
-        #     st.write('You selected:', option2)
-        
-        # filtro= df[(df["Category"]==option1)&(df["Subcategory"]==option2)&(action)] 
-        # st.bar_chart(filtro,x="Action",y="Action_needed", color=['#BD9EE5'])
+    st.header(""" Primeros Insights """)
+    insight_1, insight_2, insight_3 = st.columns(3)
+    with insight_1:
+        centrar_texto_css = """<style>.centrar-texto {text-align: center;}</style>"""
+        st.markdown(centrar_texto_css, unsafe_allow_html=True)
+        #Countrys
+        st.metric(label="**Countrys**", value=str(len(df["Country"].unique())))
+
+    with insight_2:
+        centrar_texto_css = """<style>.centrar-texto {text-align: center;}</style>"""
+        st.markdown(centrar_texto_css, unsafe_allow_html=True)
+        #CO2 (mT)
+        co2_23= str(round(df["Co2-Emissions 2023"].sum(),1))
+        delta=str(round(df["Co2-Emissions 2023"].sum()-df["Co2-Emissions 2021"].sum(),1))
+        st.metric(label="**CO2 WORLDWIDE (Tn) in 2023**", value=co2_23, delta=f'{delta} (2021)*')
+    with insight_3:
+        st.empty()
+
+    # category= df["Category"].unique()
+    # subcategory= df["Subcategory"].unique()
+    # #action= df["Action"].isin(["off","on"])
+    # action= df["Action"]!= "none"
+    
+    # column_1,column_2 =st.columns(2)
+    # with column_1:
+    #     option1 = st.selectbox('Category',(category))
+    #     st.write('You selected:', option1)
+    # with column_2:
+    #     option2 = st.selectbox('Subcategory',(subcategory))
+    #     st.write('You selected:', option2)
+    
+    # filtro= df[(df["Category"]==option1)&(df["Subcategory"]==option2)&(action)] 
+    # st.bar_chart(filtro,x="Action",y="Action_needed", color=['#BD9EE5'])
 
     #"#FFB8F4"
    #["#121B29","#2F3D5B", "#6E679A", "#BD9EE5", "#F8CCED"]
