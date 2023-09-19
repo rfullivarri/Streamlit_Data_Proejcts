@@ -5,7 +5,8 @@ from  streamlit_lottie import  st_lottie
 from streamlit_option_menu import option_menu
 from  PIL import  Image as Pillow
 import matplotlib.pyplot as plt
-from Data_Analisis_CO2 import data_preparation, data_pre_code
+import plotly.express as px
+from Data_Analisis_CO2 import data_preparation, data_pre_code, primeros_insights, barchart_countrys
 
 #Set up web
 st.set_page_config(page_title="CO2 WORDLWIDE ANALISIS",
@@ -123,9 +124,10 @@ def Home():
 #DATA INSIGHTS
 def Data_Insight():
     values =st.container()
-    values.title("Data & Insight🚀")
+    values.title("Data & Insight 🚀")
     values.write("Primero preparamos la DB para que podemos trabajar con ella. Depuramos tipo de datos, comas, puntos y simbolos ($,%,& ect)")
-    with values.expander("Ver Codigo de preparacion de DB"):
+    #EXPANCION CODIGO
+    with values.expander("Ver Codigo <> Depuracion de DB"):
         code_style = """
             <style>.stApp pre {background-color: #2E2E2E !important; /* Color de fondo oscuro */
                     color: #FFFFFF !important; /* Color del texto blanco */}
@@ -133,24 +135,36 @@ def Data_Insight():
                      """
         st.markdown(code_style, unsafe_allow_html=True)
         st.code(data_pre_code,language="python")
-    
+#DF DEPURADO
     values.write("Asi queda la DB lista para usar")
     df= data_preparation()
     st.dataframe(df)
     st.markdown("<h1 style='text-align: right; font-size: 13px;'>*Los valores None no los necesitamos para este analisis*</h1>", unsafe_allow_html=True)
 
+#PRIMEROS INSIGHTS
     st.header(""" Primeros Insights """)
+    st.write("##")
+    #EXPANCION CODIGO
+    with st.expander("Ver Codigo <> Insight"):
+        code_style = """
+            <style>.stApp pre {background-color: #2E2E2E !important; /* Color de fondo oscuro */
+                    color: #FFFFFF !important; /* Color del texto blanco */}
+            </style>
+                     """
+        st.markdown(code_style, unsafe_allow_html=True)
+        st.code(primeros_insights,language="python")
+
     insight_1, insight_2, insight_3 = st.columns(3)
     with insight_1:
+        #Countrys
         centrar_texto_css = """<style>.centrar-texto {text-align: center;}</style>"""
         st.markdown(centrar_texto_css, unsafe_allow_html=True)
-        #Countrys
-        st.metric(label="**Countrys**", value=str(len(df["Country"].unique())))
+        st.metric(label="**COUNTRYS**", value=str(len(df["Country"].unique())))
 
     with insight_2:
+        #CO2 (mT)
         centrar_texto_css = """<style>.centrar-texto {text-align: center;}</style>"""
         st.markdown(centrar_texto_css, unsafe_allow_html=True)
-        #CO2 (mT)
         co2_23= str(round(df["Co2-Emissions 2023"].sum(),1))
         delta=str(round(df["Co2-Emissions 2021"].sum()-df["Co2-Emissions 2023"].sum(),1))
         st.metric(label="**CO2 WORLDWIDE (Tn) in 2023**", value=co2_23, delta=f'{delta} (2021)*')
@@ -158,20 +172,39 @@ def Data_Insight():
     with insight_3:
         st.empty()
 
+#GRAFICO1
+    st.write("##")
+    st.header(""" TOP 10 paises de mayor emision de CO2 (2023) """)
+    #EXPANCION CODIGO
+    with st.expander("Ver Codigo <> Bar Chart"):
+        code_style = """
+            <style>.stApp pre {background-color: #2E2E2E !important; /* Color de fondo oscuro */
+                    color: #FFFFFF !important; /* Color del texto blanco */}
+            </style>
+                     """
+        st.markdown(code_style, unsafe_allow_html=True)
+        st.code(barchart_countrys,language="python")
     #HIGH CO2 BY COUNTRY
     df_co2_23_by_country= (df.sort_values(by="Co2-Emissions 2023",ascending=False)).set_index("Country").head(10)
-    st.dataframe(df_co2_23_by_country)
+    df_co2_23_by_country = df_co2_23_by_country[::-1] #invertir el df para grafico de barras
+    # 2. Crear el gráfico de barras verticales con Plotly
+    fig = px.bar(df_co2_23_by_country, x="Co2-Emissions 2023", y=df_co2_23_by_country.index, orientation="h",
+             text="Co2-Emissions 2023", color_discrete_sequence=["#FFB8F4"])
+    # Personaliza la apariencia del gráfico
+    fig.update_layout(
+    xaxis_title="Co2-Emissions 2023",
+    yaxis_title="Country",
+    paper_bgcolor="rgba(0,0,0,0)",  # Fondo transparente
+    plot_bgcolor="rgba(0,0,0,0)",   # Fondo transparente
+    font=dict(color="white"))       # Color de las etiquetas en blanco
+    # Muestra el gráfico en Streamlit
+    st.plotly_chart(fig, use_container_width=True)
 
-    plt.figure(figsize=(10, 6))
-    plt.barh(df_co2_23_by_country.index, df_co2_23_by_country["Co2-Emissions 2023"])
-    plt.xlabel("Co2-Emissions 2023")
-    plt.ylabel("Country")
-    plt.gca().invert_yaxis() 
-    plt.savefig("bar_chart.png", bbox_inches="tight")
-    plt.close()
 
-    # 3. Muestra la imagen del gráfico de barras en Streamlit
-    st.image("bar_chart.png", use_container_width=True)
+
+
+
+
 
 
 

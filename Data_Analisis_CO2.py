@@ -172,9 +172,44 @@ data_pre_code="""
         print(col,"  ",df[str(col)][1],"  ",df[str(col)].dtype)
 """
 
+primeros_insights="""
+    insight_1, insight_2, insight_3 = st.columns(3)
+    with insight_1:
+        centrar_texto_css = "<style>.centrar-texto {text-align: center;}</style>"
+        st.markdown(centrar_texto_css, unsafe_allow_html=True)
+        #Countrys
+        st.metric(label="**Countrys**", value=str(len(df["Country"].unique())))
 
+    with insight_2:
+        centrar_texto_css = "<style>.centrar-texto {text-align: center;}</style>"
+        st.markdown(centrar_texto_css, unsafe_allow_html=True)
+        #CO2 (mT)
+        co2_23= str(round(df["Co2-Emissions 2023"].sum(),1))
+        delta=str(round(df["Co2-Emissions 2021"].sum()-df["Co2-Emissions 2023"].sum(),1))
+        st.metric(label="**CO2 WORLDWIDE (Tn) in 2023**", value=co2_23, delta=f'{delta} (2021)*')
 
+    with insight_3:
+        st.empty()
+                    """
 
+barchart_countrys="""
+    #HIGH CO2 BY COUNTRY
+    df_co2_23_by_country= (df.sort_values(by="Co2-Emissions 2023",ascending=False)).set_index("Country").head(10)
+    df_co2_23_by_country = df_co2_23_by_country[::-1] #invertir el df para grafico de barras
+    # 2. Crear el gráfico de barras verticales con Plotly
+    fig = px.bar(df_co2_23_by_country, x="Co2-Emissions 2023", y=df_co2_23_by_country.index, orientation="h",
+             text="Co2-Emissions 2023", color_discrete_sequence=["#FFB8F4"])
+    # Personaliza la apariencia del gráfico
+    fig.update_layout(
+    xaxis_title="Co2-Emissions 2023",
+    yaxis_title="Country",
+    paper_bgcolor="rgba(0,0,0,0)",  # Fondo transparente
+    plot_bgcolor="rgba(0,0,0,0)",   # Fondo transparente
+    font=dict(color="white"))       # Color de las etiquetas en blanco
+
+    # Muestra el gráfico en Streamlit
+    st.plotly_chart(fig, use_container_width=True)
+                    """
 
 # df["Co2-Emissions 2023"]= df["Co2-Emissions 2023"]/1000
 
