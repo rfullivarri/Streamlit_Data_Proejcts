@@ -142,7 +142,7 @@ def Data_Insight():
     st.markdown("<h1 style='text-align: right; font-size: 13px;'>*Los valores None no los necesitamos para este analisis*</h1>", unsafe_allow_html=True)
 
 #PRIMEROS INSIGHTS
-    st.header(""" Primeros Insights """)
+    st.header(""" Primeros Insights 👨‍💻""")
     st.write("##")
     #EXPANCION CODIGO
     with st.expander("Ver Codigo <> Insight"):
@@ -167,14 +167,14 @@ def Data_Insight():
         st.markdown(centrar_texto_css, unsafe_allow_html=True)
         co2_23= str(round(df["Co2-Emissions 2023"].sum(),1))
         delta=str(round(df["Co2-Emissions 2021"].sum()-df["Co2-Emissions 2023"].sum(),1))
-        st.metric(label="**CO2 WORLDWIDE (Tn) in 2023**", value=co2_23, delta=f'{delta} (2021)*')
+        st.metric(label="**CO2 WORLDWIDE (Tn) in 2023**", value=co2_23, delta=f'{delta} (2021)*',delta_color="inverse")
 
     with insight_3:
         st.empty()
 
 #GRAFICO1
     st.write("##")
-    st.header(""" TOP 10 paises de mayor emision de CO2 (2023) """)
+    st.header(""" TOP 10 paises de mayor emision de CO2 (2023) 🍂""")
     #EXPANCION CODIGO
     with st.expander("Ver Codigo <> Bar Chart"):
         code_style = """
@@ -191,14 +191,19 @@ def Data_Insight():
     fig = px.bar(df_co2_23_by_country, x="Co2-Emissions 2023", y=df_co2_23_by_country.index, orientation="h",
              text="Co2-Emissions 2023", color_discrete_sequence=["#FFB8F4"])
     # Personaliza la apariencia del gráfico
-    fig.update_layout(
-    xaxis_title="Co2-Emissions 2023",
-    yaxis_title="Country",
-    paper_bgcolor="rgba(0,0,0,0)",  # Fondo transparente
-    plot_bgcolor="rgba(0,0,0,0)",   # Fondo transparente
-    font=dict(color="white"))       # Color de las etiquetas en blanco
+    fig.update_layout(  xaxis_title="Co2-Emissions 2023",
+                        yaxis_title="Country",
+                        paper_bgcolor="rgba(0,0,0,0)",  # Fondo transparente
+                        plot_bgcolor="rgba(0,0,0,0)",   # Fondo transparente
+                        font=dict(color="white"))       # Color de las etiquetas en blanco
     # Muestra el gráfico en Streamlit
     st.plotly_chart(fig, use_container_width=True)
+#GRAFICO2
+    st.write("##")
+    st.header(""" Crecimiento de la emision de CO2 entre 1990 y 2023""")
+    #df_co2_9023= 
+
+
 
 
 
