@@ -6,7 +6,7 @@ from streamlit_option_menu import option_menu
 from  PIL import  Image as Pillow
 import matplotlib.pyplot as plt
 import plotly.express as px
-from Data_Analisis_CO2 import data_preparation, data_pre_code, primeros_insights, barchart_countrys
+from Data_Analisis_CO2 import data_pre_code, primeros_insights, barchart_countrys
 
 #Set up web
 st.set_page_config(page_title="CO2 WORDLWIDE ANALISIS",
@@ -137,7 +137,7 @@ def Data_Insight():
         st.code(data_pre_code,language="python")
 #DF DEPURADO
     values.write("Asi queda la DB lista para usar")
-    df= data_preparation()
+    df= pd.read_csv(r"CO2_WORLDWIDE_90_23.csv")
     st.dataframe(df)
     st.markdown("<h1 style='text-align: right; font-size: 13px;'>*Los valores None no los necesitamos para este analisis*</h1>", unsafe_allow_html=True)
 

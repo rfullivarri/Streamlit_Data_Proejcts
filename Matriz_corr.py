@@ -6,7 +6,7 @@ import plotly.graph_objs as go
 from plotly.subplots import make_subplots
 from Data_Analisis_CO2 import data_preparation
 
-df= data_preparation()
+df= pd.read_csv(r"CO2_WORLDWIDE_90_23.csv")
 
 columas__mx_corr = ['Density\n (P/Km2)', 'Agricultural Land( %)',
                     'Land Area(Km2)', 'Armed Forces size', 'Birth Rate', 'Calling Code',

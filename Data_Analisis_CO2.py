@@ -72,7 +72,7 @@ def data_preparation():
 
     df["GDP"]=df["GDP"].str.replace("$","")
 
-    
+
     #CONVIERTO TODAS LAS COLUMNAS NUMERICAS EN DATO NUMERICO
     for i in num_columns:
         df[str(i)] = pd.to_numeric(df[str(i)], errors='coerce')
@@ -82,8 +82,8 @@ def data_preparation():
 
     # for col in df.columns:
     #     print(col,"  ",df[col][1],"  ",df[str(col)].dtype)
-
-    return(df)
+    
+    return(df.to_csv('CO2_WORLDWIDE_90_23.csv', index=False))
 
 
 
