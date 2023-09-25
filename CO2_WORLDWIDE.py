@@ -4,10 +4,13 @@ import pandas as pd
 import streamlit as st
 from  streamlit_lottie import  st_lottie
 from streamlit_option_menu import option_menu
+from streamlit_extras.metric_cards import style_metric_cards
+import plotly.graph_objs as go
+from plotly.subplots import make_subplots
 from  PIL import  Image as Pillow
 import matplotlib.pyplot as plt
 import plotly.express as px
-from Data_Analisis_CO2 import data_pre_code, primeros_insights, barchart_countrys
+from Data_Analisis_CO2 import data_pre_code, primeros_insights, barchart_countrys,area_chart_code
 
 #Set up web
 st.set_page_config(page_title="CO2 WORDLWIDE ANALISIS",
@@ -39,10 +42,14 @@ def on_change(key):
     selection = st.session_state[key]
 
     return str(selection)
+custom_styles = {
+    "nav-link": "textcolor: black !important;"}
 
-selected5 = option_menu(None, ["Home", "Data & Insight", 'About Me', 'Contact Me'],
+menuopt = ["Home","Data & Insight","About Me","Contact Me"]
+
+selected5 = option_menu(None, options=menuopt,
                         icons=['house', 'data', "person", 'phone'],
-                        on_change=on_change, key='menu_5', orientation="horizontal", )
+                        on_change=on_change, key='menu_5', orientation="horizontal",styles=custom_styles)
 
 
 
@@ -139,12 +146,40 @@ def Data_Insight():
 #DF DEPURADO
     values.write("Asi queda la DB lista para usar")
     df= pd.read_csv(r"CO2_WORLDWIDE_90_23.csv")
-    st.dataframe(df)
     st.markdown("<h1 style='text-align: right; font-size: 13px;'>*Los valores None no los necesitamos para este analisis*</h1>", unsafe_allow_html=True)
+    st.dataframe(df)
 
 #PRIMEROS INSIGHTS
     st.header(""" Primeros Insights 👨‍💻""")
     st.write("##")
+    empty1,insight_1, insight_2, insight_3, empty2= st.columns((0.5,2,2,2,0.5))
+    empty1.empty()
+    style_metric_cards( background_color = "#66806A",
+                        border_size_px = 1,
+                        border_color= "#FFF1AF",
+                        border_radius_px= 9,
+                        border_left_color= "#FFF1AF",
+                        box_shadow = False)
+    with insight_1:
+        #Countrys
+        centrar_texto_css = """<style>.centrar-texto {text-align: center;}</style>"""
+        insight_1.markdown(centrar_texto_css, unsafe_allow_html=True)
+        insight_1.metric(label="**COUNTRIES**", value=f'{len(df["Country"].unique())}', delta="FOR ANALYSIS", delta_color="off")
+
+    with insight_2:
+        #CO2 (mT)
+        centrar_texto_css = """<style>.centrar-texto {text-align: center;}</style>"""
+        insight_2.markdown(centrar_texto_css, unsafe_allow_html=True)
+        co2_23= str(round(df["Co2-Emissions 2023"].sum(),1))
+        delta=str(round(df["Co2-Emissions 2021"].sum()-df["Co2-Emissions 2023"].sum(),1))
+        insight_2.metric(label="**CO2 WORLDWIDE (Tn) in 2023**", value=co2_23, delta=f'{delta} (2021)*',delta_color="inverse")
+
+    with insight_3:
+        #80/20
+        centrar_texto_css = """<style>.centrar-texto {text-align: center;}</style>"""
+        insight_3.markdown(centrar_texto_css, unsafe_allow_html=True)
+        insight_3.metric(label="**COUNTRIES WHO MAKE 80/20**", value="30" , delta="WORLDWIDE",delta_color="off")
+    empty2.empty()
     #EXPANCION CODIGO
     with st.expander("Ver Codigo <> Insight"):
         code_style = """
@@ -154,29 +189,41 @@ def Data_Insight():
                      """
         st.markdown(code_style, unsafe_allow_html=True)
         st.code(primeros_insights,language="python")
-
-    insight_1, insight_2, insight_3 = st.columns(3)
-    with insight_1:
-        #Countrys
-        centrar_texto_css = """<style>.centrar-texto {text-align: center;}</style>"""
-        st.markdown(centrar_texto_css, unsafe_allow_html=True)
-        st.metric(label="**COUNTRYS**", value=str(len(df["Country"].unique())))
-
-    with insight_2:
-        #CO2 (mT)
-        centrar_texto_css = """<style>.centrar-texto {text-align: center;}</style>"""
-        st.markdown(centrar_texto_css, unsafe_allow_html=True)
-        co2_23= str(round(df["Co2-Emissions 2023"].sum(),1))
-        delta=str(round(df["Co2-Emissions 2021"].sum()-df["Co2-Emissions 2023"].sum(),1))
-        st.metric(label="**CO2 WORLDWIDE (Tn) in 2023**", value=co2_23, delta=f'{delta} (2021)*',delta_color="inverse")
-
-    with insight_3:
-        st.empty()
-
 #GRAFICO1
     st.write("##")
-    st.header(""" TOP 10 paises de mayor emision de CO2 (2023) 🍂""")
-    #EXPANCION CODIGO
+    column_1 , column_2= st.columns(2)
+    #HIGH CO2 BY COUNTRY
+    column_1.header(""" TOP 10 paises de **mayor** emision de CO2 (2023) 🍂""")
+    df_co2_23_by_country= (df.sort_values(by="Co2-Emissions 2023",ascending=False)).set_index("Country").head(10)
+    df_co2_23_by_country = df_co2_23_by_country[::-1] #invertir el df para grafico de barras
+    # 2. Crear el gráfico de barras verticales con Plotly
+    fig = px.bar(df_co2_23_by_country, x="Co2-Emissions 2023", y=df_co2_23_by_country.index, orientation="h",
+             text="Co2-Emissions 2023", color_discrete_sequence=["#FFF1AF"])
+    # Personaliza la apariencia del gráfico
+    fig.update_layout(  xaxis_title="Co2-Emissions 2023 (Tn)",
+                        yaxis_title="Country",
+                        paper_bgcolor="rgba(0,0,0,0)",  # Fondo transparente
+                        plot_bgcolor="rgba(0,0,0,0)",   # Fondo transparente
+                        font=dict(color="white"))       # Color de las etiquetas en blanco
+    # Muestra el gráfico en Streamlit
+    column_1.plotly_chart(fig, use_container_width=True)
+#GRAFICO2
+    st.write("##")
+    column_2.header("""  TOP 10 paises de **menor** emision de CO2 (2023) 🍃""")
+    df_co2_23_by_country= (df.sort_values(by="Co2-Emissions 2023",ascending=False)).set_index("Country").tail(10)
+    df_co2_23_by_country = df_co2_23_by_country[::-1] #invertir el df para grafico de barras
+    # 2. Crear el gráfico de barras verticales con Plotly
+    fig2 = px.bar(df_co2_23_by_country, x="Co2-Emissions 2023", y=df_co2_23_by_country.index, orientation="h",
+             text="Co2-Emissions 2023", color_discrete_sequence=["#FFF1AF"])
+    # Personaliza la apariencia del gráfico
+    fig2.update_layout(  xaxis_title="Co2-Emissions 2023 (Tn)",
+                        yaxis_title="Country",
+                        paper_bgcolor="rgba(0,0,0,0)",  # Fondo transparente
+                        plot_bgcolor="rgba(0,0,0,0)",   # Fondo transparente
+                        font=dict(color="white"))       # Color de las etiquetas en blanco
+    # Muestra el gráfico en Streamlit
+    column_2.plotly_chart(fig2, use_container_width=True)
+     #EXPANCION CODIGO
     with st.expander("Ver Codigo <> Bar Chart"):
         code_style = """
             <style>.stApp pre {background-color: #2E2E2E !important; /* Color de fondo oscuro */
@@ -185,24 +232,102 @@ def Data_Insight():
                      """
         st.markdown(code_style, unsafe_allow_html=True)
         st.code(barchart_countrys,language="python")
-    #HIGH CO2 BY COUNTRY
-    df_co2_23_by_country= (df.sort_values(by="Co2-Emissions 2023",ascending=False)).set_index("Country").head(10)
-    df_co2_23_by_country = df_co2_23_by_country[::-1] #invertir el df para grafico de barras
-    # 2. Crear el gráfico de barras verticales con Plotly
-    fig = px.bar(df_co2_23_by_country, x="Co2-Emissions 2023", y=df_co2_23_by_country.index, orientation="h",
-             text="Co2-Emissions 2023", color_discrete_sequence=["#FFB8F4"])
-    # Personaliza la apariencia del gráfico
-    fig.update_layout(  xaxis_title="Co2-Emissions 2023",
-                        yaxis_title="Country",
-                        paper_bgcolor="rgba(0,0,0,0)",  # Fondo transparente
-                        plot_bgcolor="rgba(0,0,0,0)",   # Fondo transparente
-                        font=dict(color="white"))       # Color de las etiquetas en blanco
-    # Muestra el gráfico en Streamlit
-    st.plotly_chart(fig, use_container_width=True)
-#GRAFICO2
+#GRAFICO3
     st.write("##")
-    st.header(""" Crecimiento de la emision de CO2 entre 1990 y 2023""")
-    #df_co2_9023= 
+    st.header("""Crecimiento de CO2 desde 1990 a 2023""")
+    area_chart=df[['Co2-Emissions 2023','Co2-Emissions 2021', 'Co2-Emissions 2020','Co2-Emissions 2019', 
+           'Co2-Emissions 2018', 'Co2-Emissions 2017','Co2-Emissions 2016', 'Co2-Emissions 2015',
+           'Co2-Emissions 2014','Co2-Emissions 2013', 'Co2-Emissions 2012', 'Co2-Emissions 2011',
+           'Co2-Emissions 2010', 'Co2-Emissions 2009', 'Co2-Emissions 2008','Co2-Emissions 2007',
+           'Co2-Emissions 2006', 'Co2-Emissions 2005','Co2-Emissions 2004', 'Co2-Emissions 2003', 
+           'Co2-Emissions 2002','Co2-Emissions 2001', 'Co2-Emissions 2000', 'Co2-Emissions 1999',
+           'Co2-Emissions 1998', 'Co2-Emissions 1997', 'Co2-Emissions 1996','Co2-Emissions 1995', 
+           'Co2-Emissions 1994', 'Co2-Emissions 1993','Co2-Emissions 1992', 'Co2-Emissions 1991', 'Co2-Emissions 1990']]
+
+    col_name= {'Co2-Emissions 2023':'2023','Co2-Emissions 2021':'2021', 'Co2-Emissions 2020':'2020',
+               'Co2-Emissions 2019':'2019', 'Co2-Emissions 2018':'2019', 'Co2-Emissions 2017':'2017',
+               'Co2-Emissions 2016':'2016', 'Co2-Emissions 2015':'2015', 'Co2-Emissions 2014':'2014',
+               'Co2-Emissions 2013':'2013', 'Co2-Emissions 2012':'2012', 'Co2-Emissions 2011':'2011',
+               'Co2-Emissions 2010':'2010', 'Co2-Emissions 2009':'2009', 'Co2-Emissions 2008':'2008',
+               'Co2-Emissions 2007':'2007', 'Co2-Emissions 2006':'2006', 'Co2-Emissions 2005':'2005',
+               'Co2-Emissions 2004':'2004', 'Co2-Emissions 2003':'2003', 'Co2-Emissions 2002':'2002',
+               'Co2-Emissions 2001':'2001', 'Co2-Emissions 2000':'2000', 'Co2-Emissions 1999':'1999',
+               'Co2-Emissions 1998':'1998', 'Co2-Emissions 1997':'1997', 'Co2-Emissions 1996':'1996',
+               'Co2-Emissions 1995':'1995', 'Co2-Emissions 1994':'1994', 'Co2-Emissions 1993':'1993',
+               'Co2-Emissions 1992':'1992', 'Co2-Emissions 1991':'1991', 'Co2-Emissions 1990':'1990'}
+
+    area_chart.rename(columns=col_name,inplace=True)
+    area_chart=area_chart.sum().T
+
+    fig3 = px.area(area_chart, color_discrete_sequence=["#FFF1AF"],log_y=True)
+
+    fig3.update_layout( xaxis_title="years",
+                        yaxis_title="CO2",
+                        paper_bgcolor="rgba(0,0,0,0)",  
+                        plot_bgcolor="rgba(0,0,0,0)",   
+                        font=dict(color="white"))       
+
+    st.plotly_chart(fig3, use_container_width=True)
+     #EXPANCION CODIGO
+    with st.expander("Ver Codigo <> Area Chart"):
+        code_style = """
+            <style>.stApp pre {background-color: #2E2E2E !important; /* Color de fondo oscuro */
+                    color: #FFFFFF !important; /* Color del texto blanco */}
+            </style>
+                     """
+        st.markdown(code_style, unsafe_allow_html=True)
+        st.code(area_chart,language="python")
+#MATRIZ DE CORRELACION
+    st.header("Next steps 🧭")
+    st.markdown("<h1 style='text-align: center; font-size: 20px;'>Queremos ir con el analisis un paso mas alla. Para eso necesitamos entender mejor los datos.Por eso hicimo esta matriz de correlacion para entender que datos estas realcionados linealmente.</h1>", unsafe_allow_html=True)
+    # st.write("""Queremos ir con el analisis un paso mas alla. Para eso necesitamos entender mejor los datos.
+    #            Por eso hicimo esta matriz de correlacion para entender que datos estas realcionados linealmente.
+    #         """)
+    columas__mx_corr = ['Density\n (P/Km2)', 'Agricultural Land( %)',
+                        'Land Area(Km2)', 'Armed Forces size', 'Birth Rate', 'Calling Code',
+                        'Co2-Emissions 2023', 'CPI', 'CPI Change (%)',
+                        'Fertility Rate', 'Forested Area (%)',
+                        'Gasoline Price', 'GDP', 'Infant mortality','Minimum wage',
+                        'Life expectancy', 'Maternal mortality ratio','Population',
+                        'Population: Labor force participation (%)', 'Tax revenue (%)',
+                        'Unemployment rate', 'Urban_population']
+
+    #adapramos las columnas que solo son numericas (int o float)
+    df_corr = df[columas__mx_corr]
+    df_corr = df_corr.apply(pd.to_numeric, errors='coerce')
+    correlation_matrix = df_corr.corr()
+
+    # Crea un gráfico de correlación con Plotly
+    fig = make_subplots(rows=1, cols=1)
+
+    # Añade la matriz de correlación como un heatmap
+    heatmap = go.Heatmap(z=correlation_matrix.values,
+                         x=correlation_matrix.columns,
+                         y=correlation_matrix.columns,
+                         colorscale='Plasma')
+
+    fig.add_trace(heatmap)
+
+    # Personaliza el diseño del gráfico
+    fig.update_layout(
+        title="Matriz de Correlación",
+        xaxis_title="Variables",
+        yaxis_title="Variables",
+        font=dict(color="black"),  # Color del texto
+        width=800,  # Ancho personalizado
+        height=800,  # Altura personalizada
+    )
+    fig.update_yaxes(tickangle=45)  # Rota las etiquetas del eje y
+    fig.update_xaxes(tickangle=45)  # Rota las etiquetas del eje x
+
+    # Muestra el gráfico en Streamlit
+    corr= st.container()
+    corr.plotly_chart(fig, use_container_width=True)
+
+
+
+
+
 
 
 
