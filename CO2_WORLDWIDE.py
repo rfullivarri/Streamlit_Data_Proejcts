@@ -279,7 +279,7 @@ def Data_Insight():
         st.code(area_chart,language="python")
 #MATRIZ DE CORRELACION
     st.header("Next steps 🧭")
-    st.markdown("<h1 style='text-align: center; font-size: 20px;'>Queremos ir con el analisis un paso mas alla. Para eso necesitamos entender mejor los datos.Por eso hicimo esta matriz de correlacion para entender que datos estas realcionados linealmente.</h1>", unsafe_allow_html=True)
+    st.markdown("<h2 style='text-align: center; font-size: 20px;'>Queremos ir un paso mas alla. Para eso necesitamos entender mejor los datos.Por eso hicimos esta matriz de correlacion para entender que datos estas realcionados linealmente.</h2>", unsafe_allow_html=True)
     # st.write("""Queremos ir con el analisis un paso mas alla. Para eso necesitamos entender mejor los datos.
     #            Por eso hicimo esta matriz de correlacion para entender que datos estas realcionados linealmente.
     #         """)
@@ -307,7 +307,6 @@ def Data_Insight():
                          colorscale='Plasma')
 
     fig.add_trace(heatmap)
-
     # Personaliza el diseño del gráfico
     fig.update_layout(
         title="Matriz de Correlación",
@@ -323,6 +322,9 @@ def Data_Insight():
     # Muestra el gráfico en Streamlit
     corr= st.container()
     corr.plotly_chart(fig, use_container_width=True)
+    colu1, colu2 =st.columns(2)
+    colu1.write("vemos...")
+    colu2.image(r"Images/White Gradient Creative Professional Modern Business Company Corporate Presentation Template.png")
 
 
 
