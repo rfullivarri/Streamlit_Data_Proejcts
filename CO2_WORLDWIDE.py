@@ -42,14 +42,12 @@ def on_change(key):
     selection = st.session_state[key]
 
     return str(selection)
-custom_styles = {
-    "nav-link": "textcolor: black !important;"}
 
 menuopt = ["Home","Data & Insight","About Me","Contact Me"]
 
 selected5 = option_menu(None, options=menuopt,
                         icons=['house', 'data', "person", 'phone'],
-                        on_change=on_change, key='menu_5', orientation="horizontal",styles=custom_styles)
+                        on_change=on_change, key='menu_5', orientation="horizontal")
 
 
 
