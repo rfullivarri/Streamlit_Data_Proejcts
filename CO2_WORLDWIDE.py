@@ -10,7 +10,6 @@ import plotly.graph_objs as go
 from plotly.subplots import make_subplots
 from sklearn.linear_model import LinearRegression
 from  PIL import  Image as Pillow
-import matplotlib.pyplot as plt
 import plotly.express as px
 from Data_Analisis_CO2 import data_pre_code, primeros_insights, barchart_countrys,area_chart_code,regression_model,histograma_code,ajuste_code
 
