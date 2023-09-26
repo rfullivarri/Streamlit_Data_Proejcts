@@ -470,7 +470,7 @@ def About_Me():
     about.write("---")
     image_colum, text_colum  = st.columns((1,3))
     with image_colum:
-        image_path = r"Images/yo.jpeg"
+        image_path = r"Images/yoyo.png"
         image = Pillow.open(image_path)
         st.image(image, use_column_width=True)
         
@@ -499,7 +499,7 @@ def About_Me():
             file_name="CV-Ramiro Fernandez de Ullivarri PMO.pdf",
             mime="pdf")
 
-        st.write("---")
+    st.write("---")
 
     contact=st.container()
 
