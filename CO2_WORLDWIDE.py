@@ -1,16 +1,18 @@
 import requests
 import os
 import pandas as pd
+import numpy as np
 import streamlit as st
 from  streamlit_lottie import  st_lottie
 from streamlit_option_menu import option_menu
 from streamlit_extras.metric_cards import style_metric_cards
 import plotly.graph_objs as go
 from plotly.subplots import make_subplots
+from sklearn.linear_model import LinearRegression
 from  PIL import  Image as Pillow
 import matplotlib.pyplot as plt
 import plotly.express as px
-from Data_Analisis_CO2 import data_pre_code, primeros_insights, barchart_countrys,area_chart_code
+from Data_Analisis_CO2 import data_pre_code, primeros_insights, barchart_countrys,area_chart_code,regression_model,histograma_code,ajuste_code
 
 #Set up web
 st.set_page_config(page_title="CO2 WORDLWIDE ANALISIS",
@@ -19,6 +21,8 @@ st.set_page_config(page_title="CO2 WORDLWIDE ANALISIS",
 
 email_address= "rfullivarri22@gmail.com"
 url_animacion= "https://lottie.host/2d201ac4-c25d-48cb-933a-3049ac56335b/fgHSZdOUxA.json"
+url_animacion2="https://lottie.host/f75d7b0d-c780-4eea-ab6c-12bb50e05e86/7zuGX4AEBT.json"
+url_animacion3="https://lottie.host/2d7bb8cf-97a8-4edc-b8d4-0f06d644a265/kU7yIyXa6B.json"
 pdf_url= r"DataSets/CV-Ramiro Fernandez de Ullivarri PMO (1).pdf"
 
 #Animaciones
@@ -28,6 +32,8 @@ def load_lottieurl(url):
         return None
     return r.json()
 lottie= load_lottieurl(url_animacion)
+lottie2= load_lottieurl(url_animacion2)
+lottie3= load_lottieurl(url_animacion3)
 
 
 
@@ -43,10 +49,10 @@ def on_change(key):
 
     return str(selection)
 
-menuopt = ["Home","Data & Insight","About Me","Contact Me"]
+menuopt = ["Home","Data & Insight","About Me"]
 
 selected5 = option_menu(None, options=menuopt,
-                        icons=['house', 'data', "person", 'phone'],
+                        icons=['house', 'data', "person"],#, 'phone'],
                         on_change=on_change, key='menu_5', orientation="horizontal")
 
 
@@ -59,7 +65,7 @@ def Home():
     home.header("Analisis sobre la emision de CO2")
     descripcion="""En CO2 WORLDWIDE, nos embarcamos en la misión de explorar la situación
                 actual del dióxido de carbono en todo el mundo, un gas que afecta directamente
-                a nuestro planeta. Con la mira puesta en la increíble cifra de más de 40 mil millones
+                a nuestro planeta. Con la mira puesta en la increíble cifra de más de 40.000 millones
                 de toneladas de CO2 emitidas anualmente, nuestro objetivo principal es destacar la importancia
                 de comprender estos números a través de datos y análisis sólidos. Nos adentramos en el 
                fascinante mundo de los datos para revelar patrones y tendencias que arrojarán luz sobre la
@@ -73,31 +79,27 @@ def Home():
     valor1, valor2, valor3 = st.columns(3)
     with valor1:
         st.header("Analisis 👩‍💻")
-        text1="""Nuestro primer objetivo es aprender a realizar un análisis de datos de alta calidad. 
+        text1="""Aprenderemos a realizar un análisis de datos de alta calidad utilizando Python. 
                  Esto implica explorar y procesar datos de manera rigurosa, aplicar técnicas estadísticas,
-                  y utilizar herramientas como Pandas, Numpy y Matplotlib para obtener información valiosa. 
+                  y utilizar herramientas como Pandas, Numpy y Plotly para obtener información valiosa. 
                  Queremos convertirnos en expertos en la manipulación de datos y en la generación de 
                  resultados confiables."""
         st.markdown(f'<div style="text-align: justify">{text1}</div>',unsafe_allow_html=True)
 
     with valor2:
         st.header("Insights ✨")
-        text2="""En segundo lugar, nuestro objetivo es obtener valiosos conocimientos y 
-                 conclusiones sobre el dióxido de carbono (CO2) a partir de nuestros análisis. 
+        text2="""Obtener valiosos conocimientos y conclusiones sobre el dióxido de carbono (CO2) a partir de nuestros análisis. 
                  Queremos descubrir patrones ocultos, identificar tendencias preocupantes o alentadoras, 
-                 y, en última instancia, contribuir al entendimiento de la importancia de controlar
+                 y en última instancia, contribuir al entendimiento de la importancia de controlar
                   las emisiones de CO2 para el bienestar de nuestro planeta."""
         st.markdown(f'<div style="text-align: justify">{text2}</div>',unsafe_allow_html=True)
 
     with valor3:
         st.header("Difusión 🤲")
-        text3= """Aumentar la conciencia pública sobre la problemática del CO2 y sus efectos en 
-                 nuestro entorno. Buscamos informar y educar a la comunidad sobre los hallazgos y 
+        text3= """Buscamos informar y educar a la comunidad sobre los hallazgos y 
                  conclusiones que obtengamos a través de nuestro análisis de datos. Esto incluye la 
-                 creación de contenido educativo, gráficos impactantes y presentaciones accesibles 
-                 que ayuden a transmitir de manera efectiva la importancia de reducir las emisiones de CO2 
-                 y adoptar prácticas más sostenibles. Queremos inspirar a las personas a tomar medidas
-                  concretas para abordar este desafío global."""
+                 creación de contenido educativo, gráficos impactantes y presentaciones accesibles. Ademas se dispondra
+                 de todo el codigo realizado en Python para que se puede respoducir y correguir en caso de ser necesario"""
         st.markdown(f'<div style="text-align: justify">{text3}</div>',unsafe_allow_html=True)
 
     st.write("---")
@@ -107,17 +109,23 @@ def Home():
     datos.write("##")
     datos1, datos2 = st.columns(2)
     with datos1:
-        #st.empty()
         textdata="""Nuestro análisis de datos comenzará con una exploración exhaustiva del conjunto de datos,
                   identificando su tamaño y las variables más relevantes. Luego, nos sumergiremos en el mundo
                   de la correlación para comprender las interacciones dentro de los datos. A continuación, 
-                 emplearemos gráficos impactantes para ilustrar los datos y obtener conocimientos profundos. 
-                 En cada etapa, te proporcionaremos códigos de Python utilizando bibliotecas como Pandas, Numpy, 
-                 Matplotlib y Streamlit para que puedas seguir y aprender junto a nosotros. """
-        st.markdown(f'<div style="text-align: justify; font-size: 23px">{textdata}</div>',unsafe_allow_html=True)
+                 emplearemos gráficos para ilustrar los datos y obtener conocimientos. 
+                 """
+        st.markdown(f'<div style="text-align: justify; font-size: 22px">{textdata}</div>',unsafe_allow_html=True)
     with datos2:
         st_lottie(lottie,height= 400)
-          
+
+    datos3, datos4 = st.columns(2)
+    with datos3:
+        st_lottie(lottie2,height= 400)
+    textdata2="""En cada etapa, te proporcionaremos códigos de Python utilizando bibliotecas como Pandas, Numpy, 
+                 Plotly y Streamlit para que puedas seguir y aprender junto a nosotros.
+                """
+    datos4.markdown(f'<div style="text-align: justify; font-size: 22px">{textdata2}</div>',unsafe_allow_html=True)      
+
     # image_path = r"imagen/smartcity.png"
     # image = Pillow.open(image_path)
     # st.image(image, use_column_width=True, caption="Imagen Smart City")
@@ -170,7 +178,7 @@ def Data_Insight():
         insight_2.markdown(centrar_texto_css, unsafe_allow_html=True)
         co2_23= str(round(df["Co2-Emissions 2023"].sum(),1))
         delta=str(round(df["Co2-Emissions 2021"].sum()-df["Co2-Emissions 2023"].sum(),1))
-        insight_2.metric(label="**CO2 WORLDWIDE (Tn) in 2023**", value=co2_23, delta=f'{delta} (2021)*',delta_color="inverse")
+        insight_2.metric(label="**CO2 WORLDWIDE (Millons Tn) in 2023**", value=co2_23, delta=f'{delta} (2021)*',delta_color="inverse")
 
     with insight_3:
         #80/20
@@ -179,7 +187,7 @@ def Data_Insight():
         insight_3.metric(label="**COUNTRIES WHO MAKE 80/20**", value="30" , delta="WORLDWIDE",delta_color="off")
     empty2.empty()
     #EXPANCION CODIGO
-    with st.expander("Ver Codigo <> Insight"):
+    with st.expander("Ver Codigo </> Insight"):
         code_style = """
             <style>.stApp pre {background-color: #2E2E2E !important; /* Color de fondo oscuro */
                     color: #FFFFFF !important; /* Color del texto blanco */}
@@ -222,7 +230,7 @@ def Data_Insight():
     # Muestra el gráfico en Streamlit
     column_2.plotly_chart(fig2, use_container_width=True)
      #EXPANCION CODIGO
-    with st.expander("Ver Codigo <> Bar Chart"):
+    with st.expander("Ver Codigo </> Bar Chart"):
         code_style = """
             <style>.stApp pre {background-color: #2E2E2E !important; /* Color de fondo oscuro */
                     color: #FFFFFF !important; /* Color del texto blanco */}
@@ -233,6 +241,7 @@ def Data_Insight():
 #GRAFICO3
     st.write("##")
     st.header("""Crecimiento de CO2 desde 1990 a 2023""")
+
     area_chart=df[['Co2-Emissions 2023','Co2-Emissions 2021', 'Co2-Emissions 2020','Co2-Emissions 2019', 
            'Co2-Emissions 2018', 'Co2-Emissions 2017','Co2-Emissions 2016', 'Co2-Emissions 2015',
            'Co2-Emissions 2014','Co2-Emissions 2013', 'Co2-Emissions 2012', 'Co2-Emissions 2011',
@@ -267,20 +276,21 @@ def Data_Insight():
 
     st.plotly_chart(fig3, use_container_width=True)
      #EXPANCION CODIGO
-    with st.expander("Ver Codigo <> Area Chart"):
+    with st.expander("Ver Codigo </> Area Chart"):
         code_style = """
             <style>.stApp pre {background-color: #2E2E2E !important; /* Color de fondo oscuro */
                     color: #FFFFFF !important; /* Color del texto blanco */}
             </style>
                      """
         st.markdown(code_style, unsafe_allow_html=True)
-        st.code(area_chart,language="python")
+        st.code(area_chart_code,language="python")
+
 #MATRIZ DE CORRELACION
     st.header("Next steps 🧭")
     st.markdown("<h2 style='text-align: center; font-size: 20px;'>Queremos ir un paso mas alla. Para eso necesitamos entender mejor los datos.Por eso hicimos esta matriz de correlacion para entender que datos estas realcionados linealmente.</h2>", unsafe_allow_html=True)
-    # st.write("""Queremos ir con el analisis un paso mas alla. Para eso necesitamos entender mejor los datos.
-    #            Por eso hicimo esta matriz de correlacion para entender que datos estas realcionados linealmente.
-    #         """)
+        # st.write("""Queremos ir con el analisis un paso mas alla. Para eso necesitamos entender mejor los datos.
+        #            Por eso hicimo esta matriz de correlacion para entender que datos estas realcionados linealmente.
+        #         """)
     columas__mx_corr = ['Density\n (P/Km2)', 'Agricultural Land( %)',
                         'Land Area(Km2)', 'Armed Forces size', 'Birth Rate', 'Calling Code',
                         'Co2-Emissions 2023', 'CPI', 'CPI Change (%)',
@@ -297,13 +307,11 @@ def Data_Insight():
 
     # Crea un gráfico de correlación con Plotly
     fig = make_subplots(rows=1, cols=1)
-
     # Añade la matriz de correlación como un heatmap
     heatmap = go.Heatmap(z=correlation_matrix.values,
                          x=correlation_matrix.columns,
                          y=correlation_matrix.columns,
                          colorscale='Plasma')
-
     fig.add_trace(heatmap)
     # Personaliza el diseño del gráfico
     fig.update_layout(
@@ -312,59 +320,147 @@ def Data_Insight():
         yaxis_title="Variables",
         font=dict(color="black"),  # Color del texto
         width=800,  # Ancho personalizado
-        height=800,  # Altura personalizada
-    )
+        height=800)
+    
     fig.update_yaxes(tickangle=45)  # Rota las etiquetas del eje y
     fig.update_xaxes(tickangle=45)  # Rota las etiquetas del eje x
-
     # Muestra el gráfico en Streamlit
     corr= st.container()
     corr.plotly_chart(fig, use_container_width=True)
+
     colu1, colu2 =st.columns(2)
-    colu1.write("vemos...")
-    colu2.image(r"Images/White Gradient Creative Professional Modern Business Company Corporate Presentation Template.png")
+    correlat="""Vemos que tenemos 3 variables fuertemente correlacionadas con las emisiones de CO2. 
+                A fines practicos vamos a analizar solo una. En este caso vamos a analizar la relacion entre
+                CO2 vs GDP. Para eso vamos a realizar un Modelo de Regrecion Lineal que nos ayude a predecir 
+                la emision de CO2 dependiendo del GDP de un pais. Ademas analizaremos que tan presciso es el modelo 
+                para entedender si podemos fiarnos de los resultados"""
+    colu1.markdown(f"<div style='text-align: justify; font-size: 20px;'>{correlat}</div>", unsafe_allow_html=True)
+    
+    colu2.image(r"Images/White Gradient Creative Professional Modern Business Company Corporate Presentation Template.png",width=400)
+    st.write("##")
+    st.write("##")
+    st.markdown("<h2 style='text-align: left; font-size: 35px;'>Modelo de Regresion Lineal</h2>", unsafe_allow_html=True)
+    st.write("##")
+    colmol1,colmol2= st.columns(2)
+    with colmol1:
+        st_lottie(lottie3,height= 400)
+    textregre="""Un modelo de regresión lineal es una herramienta estadística que se utiliza para comprender y modelar 
+                 la relación entre una variable dependiente (la que se desea predecir) y una o más variables independientes (predictoras).
+                Su objetivo principal es identificar y cuantificar la relación lineal entre estas variables, 
+                 lo que permite hacer predicciones o estimaciones de la variable dependiente en función de los valores de las variables independientes. 
+                En esencia, un modelo de regresión lineal se utiliza para comprender cómo los cambios en una o varias variables predictoras se relacionan con cambios en la variable que se quiere predecir, lo que resulta útil en tareas como la predicción de ventas, el análisis de tendencias, la evaluación de impacto de variables y la toma de decisiones basada en datos."""
+    colmol2.markdown(f"<div style='text-align: justify; font-size: 20px;'>{textregre}</div>", unsafe_allow_html=True)
+    
+    st.write("##")
+    st.subheader("Utilizando la libreria de Scikit-Leard realizamos el Modelos")
+    code_style = """
+            <style>.stApp pre {background-color: #2E2E2E !important; /* Color de fondo oscuro */
+                    color: #FFFFFF !important; /* Color del texto blanco */}
+            </style>
+                     """
+    st.markdown(code_style, unsafe_allow_html=True)
+    st.code(regression_model,language="python")
+    st.write("##")
+    st.subheader("Luego tenemos que analizar si el modelo esta alineado a la realidad")
+    st.write("Para eso primero vemos a realizar un análisis de residuos.Los residuos son la diferencia entre los valores observados y los valores predichos por el modelo. Puedes obtener los residuos de la siguiente manera:")
+    code_style = """
+            <style>.stApp pre {background-color: #2E2E2E !important; /* Color de fondo oscuro */
+                    color: #FFFFFF !important; /* Color del texto blanco */}
+            </style>
+                     """
+    st.markdown(code_style, unsafe_allow_html=True)
+    st.code("residuos = y - modelo.predict(x)",language="python")
+    st.write("Donde y son los valores observados (CO2 en este caso) y modelo.predict(x) son las predicciones del modelo para los mismos valores de x (GDP en este caso).")
+    st.write("##")
+    st.subheader("Despues graficamos los residuos")
+    st.write("##")
+    colres1,colres2 = st.columns(2)
+    colres1.write("##")
+    histograf="""Una forma común de evaluar la calidad del ajuste es graficar los residuos.
+              Puedes usar un histograma para visualizar la distribución de los residuos.
+              Un patrón ideal sería que los residuos estén distribuidos de manera aleatoria alrededor de cero y no muestren ningún patrón evidente.
+                    """
+    colres1.markdown(f"<div style='text-align: justify; font-size: 20px;'>{histograf}</div>", unsafe_allow_html=True)
+    with colres2:
+            x = df['GDP'].values.reshape(-1, 1) # Variables independientes 
+            y = df['Co2-Emissions 2023'].values # Variables dependiente
+            modelo = LinearRegression()
+            modelo.fit(x, y)
+            residuos = y - modelo.predict(x)
+            histogram_fig = px.histogram(x=residuos, nbins=30, color_discrete_sequence=["#FFF1AF"])
+            histogram_fig.update_layout(xaxis_title="Residuos",
+                                        yaxis_title="Frecuencia",
+                                        title="Histograma de residuos",
+                                        paper_bgcolor="rgba(0,0,0,0)",  
+                                        plot_bgcolor="rgba(0,0,0,0)",   
+                                        font=dict(color="white") 
+                                            )
+            st.plotly_chart(histogram_fig, use_container_width=True)
+    #EXPANCION CODIGO
+    with st.expander("Ver Codigo </> Histograma Chart"):
+        code_style = """
+        <style>.stApp pre {background-color: #2E2E2E !important; /* Color de fondo oscuro */
+                color: #FFFFFF !important; /* Color del texto blanco */}
+        </style>
+                 """
+        st.markdown(code_style, unsafe_allow_html=True)
+        st.code(histograma_code,language="python")
+    rtohisto="""Pomodes observar en el histograma que no hay una gran dispersion en los datos, pero esto no
+                es suficiente para considerar el modelo alineado a la realidad"""
+    st.markdown(f"<div style='text-align: justify; font-size: 20px;'>{rtohisto}</div>", unsafe_allow_html=True)
+    st.write("##")
+    st.write("##")
+    st.header("Ahora evaluamos la estadistia de calidad de ajuste")
+    ajuste="""Evaluar estadísticas de calidad del ajuste, como el coeficiente de determinación (R^2) 
+                y el error cuadrático medio (MSE). Estas métricas te darán una idea de cuánta variabilidad de los 
+                datos es explicada por el modelo y cuán bien se ajusta a los datos."""
+    st.markdown(f"<div style='text-align: justify; font-size: 20px;'>{ajuste}</div>", unsafe_allow_html=True)
+    code_style = """
+            <style>.stApp pre {background-color: #2E2E2E !important; /* Color de fondo oscuro */
+                    color: #FFFFFF !important; /* Color del texto blanco */}
+            </style>
+                     """
+    st.markdown(code_style, unsafe_allow_html=True)
+    st.code(ajuste_code,language="python")
+    empi1,col5,col6,empi2=st.columns((2,1,1,2))
+    empi1.empty()
+    col5.markdown(centrar_texto_css, unsafe_allow_html=True)
+    col5.metric(label="**Coeficiente de determinación R^2**", value=f'0.8167')
+    col6.markdown(centrar_texto_css, unsafe_allow_html=True)
+    col6.metric(label="**Error cuadrático medio (MSE)**", value=f'139153.04')
+    empi2.empty()
+    st.write("##")
+    coefi="""Un coeficiente de determinación (R^2) de 0.8167 es relativamente alto, 
+    lo que sugiere que tu modelo de regresión lineal explica una gran parte de la variabilidad en los datos.
+    Esto nos permite considerar el modelo aceptable para predecir datos"""
+    st.markdown(f"<div style='text-align: justify; font-size: 20px;'>{coefi}</div>", unsafe_allow_html=True)
+    st.write("##")
+    st.header("Estimacion de la emision de CO2 apartir del GDP de un pais")
+    coefi="""Con este breve y simple analisis pudimos generar un modelos de machine learning que puede predecir 
+            con un 80% de certeza la emision de CO2 de un pais apartir del su GDP"""
+    st.markdown(f"<div style='text-align: justify; font-size: 20px;'>{coefi}</div>", unsafe_allow_html=True)
 
+    #st.write(f"Nuevo valor de GDP en millones de pesos")
+    nuevo_GDP = st.number_input("Ingrese el nuevo valor de GDP en millones de pesos")
 
+    # Agregar un botón para realizar la consulta al modelo
+    if st.button("Realizar predicción de CO2"):
+        # Realizar la predicción cuando se presione el botón
+        prediccion_CO2 = modelo.predict(np.array([[nuevo_GDP]]))
+        prediccion_CO2 = round(prediccion_CO2[0], 10)
+        st.write(f"Predicción de CO2 en millones de toneladas: {prediccion_CO2}")
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    # nuevo_GDP = np.array([[st.number_input("Ingrese el nuevo valor de GDP en millones de pesos")]])  # Ejemplo de un nuevo valor de GDP en millones de pesos
+    # prediccion_CO21 = modelo.predict(nuevo_GDP)
+    # prediccion_CO21 = round(prediccion_CO21[0], 2)
+    # st.write(f"Predicción de CO2 en millones de toneladas: {prediccion_CO21}")
 
 
 
     
 
-    #, """'Co2-Emissions 2012', 'Co2-Emissions 2011','Co2-Emissions 2010', 'Co2-Emissions 2009', 'Co2-Emissions 2008','Co2-Emissions 2007', 'Co2-Emissions 2006', 'Co2-Emissions 2005','Co2-Emissions 2004', 'Co2-Emissions 2003', 'Co2-Emissions 2002','Co2-Emissions 2001', 'Co2-Emissions 2000', 'Co2-Emissions 1999','Co2-Emissions 1998', 'Co2-Emissions 1997', 'Co2-Emissions 1996','Co2-Emissions 1995', 'Co2-Emissions 1994', 'Co2-Emissions 1993','Co2-Emissions 1992', 'Co2-Emissions 1991', 'Co2-Emissions 1990'"""
 
-    # category= df["Category"].unique()
-    # subcategory= df["Subcategory"].unique()
-    # #action= df["Action"].isin(["off","on"])
-    # action= df["Action"]!= "none"
-    
-    # column_1,column_2 =st.columns(2)
-    # with column_1:
-    #     option1 = st.selectbox('Category',(category))
-    #     st.write('You selected:', option1)
-    # with column_2:
-    #     option2 = st.selectbox('Subcategory',(subcategory))
-    #     st.write('You selected:', option2)
-    
-    # filtro= df[(df["Category"]==option1)&(df["Subcategory"]==option2)&(action)] 
-    # st.bar_chart(filtro,x="Action",y="Action_needed", color=['#BD9EE5'])
 
-    #"#FFB8F4"
-   #["#121B29","#2F3D5B", "#6E679A", "#BD9EE5", "#F8CCED"]
 
 
 
@@ -404,17 +500,10 @@ def About_Me():
             file_name="CV-Ramiro Fernandez de Ullivarri PMO.pdf",
             mime="pdf")
 
-        st.write("---") 
+        st.write("---")
 
-    
-       
-
-
-#CONTACT US
-def Contact_Me():
     contact=st.container()
-    contact.write("---")
-    
+
     contact_form = f"""
     <form action="https://formsubmit.co/{email_address}" method="POST">
         <input type="hidden" name="_captcha" value="false">
@@ -432,7 +521,10 @@ def Contact_Me():
     with right_column:
         st.empty()
     with left_column:
-        st.empty()
+        st.empty() 
+
+    
+
 
 
 if on_change("menu_5") == "Home":
@@ -441,8 +533,7 @@ elif on_change("menu_5") == "Data & Insight":
     Data_Insight() 
 elif on_change("menu_5") == "About Me":
     About_Me() 
-elif on_change("menu_5") == "Contact Me":
-    Contact_Me()         
+     
 else:
     st.empty()
 

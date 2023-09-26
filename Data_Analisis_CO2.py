@@ -265,6 +265,38 @@ st.plotly_chart(fig3, use_container_width=True)
 
                 """
 
+regression_model="""
+                    import pandas as pd
+                    from sklearn.linear_model import LinearRegression
+                    import numpy as np
+                    
+                    df= pd.read_csv(r"CO2_WORLDWIDE_90_23.csv")
+                    
+                    x = df['GDP'].values.reshape(-1, 1) # Variables independientes 
+                    y = df['Co2-Emissions 2023'].values # Variables dependiente
+                    
+                    #Realizamos el modelos
+                    modelo = LinearRegression()
+                    modelo.fit(x, y)"""
 
+histograma_code="""
+histogram_fig = px.histogram(x=residuos, 
+                            nbins=30, 
+                            color_discrete_sequence=["#FFF1AF"])
+    histogram_fig.update_layout(xaxis_title="Residuos",
+                                yaxis_title="Frecuencia",
+                                title="Histograma de residuos",
+                                paper_bgcolor="rgba(0,0,0,0)",  
+                                plot_bgcolor="rgba(0,0,0,0)",   
+                                font=dict(color="white") 
+                                    )
+    st.plotly_chart(histogram_fig, use_container_width=True)
 
+        """
+ajuste_code="""r2 = r2_score(y, modelo.predict(x))
+mse = mean_squared_error(y, modelo.predict(x))
 
+print(f"Coeficiente de determinación (R^2): {r2}")
+print(f"Error cuadrático medio (MSE): {mse}")
+
+"""
