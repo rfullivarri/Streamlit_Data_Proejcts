@@ -472,7 +472,7 @@ def About_Me():
     #with image_colum:
     image_path = r"Images/yoyoyo.png"
     image = Pillow.open(image_path)
-    st.image(image, use_column_width=True)
+    st.image(image, width=400,use_column_width=True)
         
     #with text_colum:
     st.header("About Me 🔍")
