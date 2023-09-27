@@ -468,11 +468,13 @@ def Data_Insight():
 def About_Me():
     about = st.container()
     about.write("---")
-    #image_colum, text_colum  = st.columns((1,3))
-    #with image_colum:
-    image_path = r"Images/yoyoyo.png"
-    image = Pillow.open(image_path)
-    st.image(image, width=400)#,use_column_width=True)
+    emppp1,image_colum, emppp2  = st.columns(3)
+    emppp1.empty()
+    with image_colum:
+        image_path = r"Images/yoyoyo.png"
+        image = Pillow.open(image_path)
+        st.image(image, width=400)#,use_column_width=True)
+    emppp2.empty()
         
     #with text_colum:
     st.header("About Me 🔍")
