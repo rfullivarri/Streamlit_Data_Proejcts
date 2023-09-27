@@ -467,7 +467,7 @@ def Data_Insight():
 #ABOUT ME
 def About_Me():
     about = st.container()
-    about.write("---")
+    st.header("About Me 🔍")
     emppp1,image_colum, emppp2  = st.columns(3)
     emppp1.empty()
     with image_colum:
@@ -476,8 +476,8 @@ def About_Me():
         st.image(image, width=400)#,use_column_width=True)
     emppp2.empty()
         
+    about.write("---")
     #with text_colum:
-    st.header("About Me 🔍")
     aboutmetext=""" 
             Soy Ramiro Fernandez de Ullivarri, un profesional con experiencia en Gestión de Proyectos. 
              Mi enfoque no se limita solo a las habilidades técnicas, sino que también comprendo las 
