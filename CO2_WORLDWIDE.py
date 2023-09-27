@@ -468,36 +468,35 @@ def Data_Insight():
 def About_Me():
     about = st.container()
     about.write("---")
-    image_colum, text_colum  = st.columns((1,3))
-    with image_colum:
-        image_path = r"Images/yoyoyo.png"
-        image = Pillow.open(image_path)
-        st.image(image, use_column_width=True)
+    #image_colum, text_colum  = st.columns((1,3))
+    #with image_colum:
+    image_path = r"Images/yoyoyo.png"
+    image = Pillow.open(image_path)
+    st.image(image, use_column_width=True)
         
-    with text_colum:
-        st.header("About Me 🔍")
-        aboutmetext=""" 
-                Soy Ramiro Fernandez de Ullivarri, un profesional con experiencia en Gestión de Proyectos. 
-                 Mi enfoque no se limita solo a las habilidades técnicas, sino que también comprendo las 
-                 necesidades del equipo y la visión empresarial. Me apasiona mantenerme al día con 
-                 las últimas tecnologías que impactan en el mercado, siempre buscando innovaciones 
-                 que simplifiquen nuestras vidas y nos conecten de formas más efectivas.
-                """
-        aboutmetext2="""Soy un Ingeniero Industrial enfocado enfocado en el analisis de datos con una pasión por 
-                    la innovación y la mejora continua. Hace mas de un año que ingrese a el mundo apasionante de data analisis 
-                    con Python y la programacion.Estoy emocionado por las oportunidades futuras y 
-                    estoy seguro de que mi experiencia y dedicación seguirán impulsando el éxito en los proyectos 
-                    venideros."""
-        st.markdown(f'<div style="text-align: justify; font-size: 23px">{aboutmetext}</div>',unsafe_allow_html=True)
-        st.markdown(f'<div style="text-align: justify; font-size: 23px">{aboutmetext2}</div>',unsafe_allow_html=True)
-
-        st.write("##")
-        with open("DataSets/CV-Ramiro Fernandez de Ullivarri PMO (1).pdf", "rb") as file:
-            descargarCV= st.download_button(
-            label="Descargar CV",
-            data=file,
-            file_name="CV-Ramiro Fernandez de Ullivarri PMO.pdf",
-            mime="pdf")
+    #with text_colum:
+    st.header("About Me 🔍")
+    aboutmetext=""" 
+            Soy Ramiro Fernandez de Ullivarri, un profesional con experiencia en Gestión de Proyectos. 
+             Mi enfoque no se limita solo a las habilidades técnicas, sino que también comprendo las 
+             necesidades del equipo y la visión empresarial. Me apasiona mantenerme al día con 
+             las últimas tecnologías que impactan en el mercado, siempre buscando innovaciones 
+             que simplifiquen nuestras vidas y nos conecten de formas más efectivas.
+            """
+    aboutmetext2="""Soy un Ingeniero Industrial enfocado enfocado en el analisis de datos con una pasión por 
+                la innovación y la mejora continua. Hace mas de un año que ingrese a el mundo apasionante de data analisis 
+                con Python y la programacion.Estoy emocionado por las oportunidades futuras y 
+                estoy seguro de que mi experiencia y dedicación seguirán impulsando el éxito en los proyectos 
+                venideros."""
+    st.markdown(f'<div style="text-align: justify; font-size: 23px">{aboutmetext}</div>',unsafe_allow_html=True)
+    st.markdown(f'<div style="text-align: justify; font-size: 23px">{aboutmetext2}</div>',unsafe_allow_html=True)
+    st.write("##")
+    with open("DataSets/CV-Ramiro Fernandez de Ullivarri PMO (1).pdf", "rb") as file:
+        descargarCV= st.download_button(
+        label="Descargar CV",
+        data=file,
+        file_name="CV-Ramiro Fernandez de Ullivarri PMO.pdf",
+        mime="pdf")
 
     st.write("---")
 
