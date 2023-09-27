@@ -470,7 +470,7 @@ def About_Me():
     about.write("---")
     image_colum, text_colum  = st.columns((1,3))
     with image_colum:
-        image_path = r"Images/yoyo.png"
+        image_path = r"Images/yoyoyo.png"
         image = Pillow.open(image_path)
         st.image(image, use_column_width=True)
         
