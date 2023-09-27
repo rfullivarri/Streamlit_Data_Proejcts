@@ -22,6 +22,8 @@ email_address= "rfullivarri22@gmail.com"
 url_animacion= "https://lottie.host/2d201ac4-c25d-48cb-933a-3049ac56335b/fgHSZdOUxA.json"
 url_animacion2="https://lottie.host/f75d7b0d-c780-4eea-ab6c-12bb50e05e86/7zuGX4AEBT.json"
 url_animacion3="https://lottie.host/2d7bb8cf-97a8-4edc-b8d4-0f06d644a265/kU7yIyXa6B.json"
+url_animacion4="https://lottie.host/dbf8d8a4-2eb6-4234-8c34-235c0e7d0bcd/lJfUkLvumW.json"
+url_animacion5="https://lottie.host/e9b9a412-7bc0-4c0c-9357-eb37b5dc6b43/eUrtcdExIJ.json"
 pdf_url= r"DataSets/CV-Ramiro Fernandez de Ullivarri PMO (1).pdf"
 
 #Animaciones
@@ -33,6 +35,8 @@ def load_lottieurl(url):
 lottie= load_lottieurl(url_animacion)
 lottie2= load_lottieurl(url_animacion2)
 lottie3= load_lottieurl(url_animacion3)
+lottie4= load_lottieurl(url_animacion4)
+lottie5= load_lottieurl(url_animacion5)
 
 
 
@@ -55,13 +59,18 @@ selected5 = option_menu(None, options=menuopt,
                         on_change=on_change, key='menu_5', orientation="horizontal")
 
 
-
+#🌎
 #HOME
 def Home():
     home= st.container()
-    home.markdown("<h1 style='text-align: center; font-size: 80px;'>CO2 WORLDWIDE ANALYSIS 🌎</h1>", unsafe_allow_html=True)
+    titulo,logo=st.columns((4,1))
+    titulo.write("##")
+    titulo.write("##")
+    titulo.markdown(f"<h1 style='text-align: center; font-size: 70px;'>CO2 WORLDWIDE ANALYSIS</h1>", unsafe_allow_html=True)
+    with logo:
+        st_lottie(lottie4,width=150)
     #home.title("CO2 WORDLWIDE ANALSIS 🌎")
-    home.header("Analisis sobre la emision de CO2")
+    st.header("Por que")
     descripcion="""En CO2 WORLDWIDE, nos embarcamos en la misión de explorar la situación
                 actual del dióxido de carbono en todo el mundo, un gas que afecta directamente
                 a nuestro planeta. Con la mira puesta en la increíble cifra de más de 40.000 millones
@@ -69,9 +78,19 @@ def Home():
                 de comprender estos números a través de datos y análisis sólidos. Nos adentramos en el 
                fascinante mundo de los datos para revelar patrones y tendencias que arrojarán luz sobre la
                 problemática del CO2 y su impacto en nuestro entorno."""
-    home.markdown(f'<div style="text-align: justify">{descripcion}</div>',unsafe_allow_html=True)
-    #home.write("[Saber Mas >]")
-    home.write("---")
+    st.markdown(f'<div style="text-align: justify">{descripcion}</div>',unsafe_allow_html=True)
+    st.write("##")
+    kaggle1,pytt2,text21= st.columns((1,0.5,4))
+    kaggle1.image(r"Images/kaggle_logo_icon_168474.png")
+    #pytt2.write("##")
+    pytt2.image(r"Images/Python-logo-notext.svg.png",width=60)
+    k_y_text="""Vamos a utilizar una base de datos de Kaggle y Python para realizar un análisis de 
+                emisiones de CO2 de países. Esta combinación nos permitirá aprender y mejorar nuestras habilidades
+                  en ciencia de datos, al mismo tiempo que enriquecerá nuestro portafolio profesional.
+                """
+    text21.markdown(f'<div style="text-align: justify">{k_y_text}</div>',unsafe_allow_html=True)
+    
+    st.write("---")
 
     values =st.container()
     values.title("Objetivos 🎯")
@@ -108,6 +127,7 @@ def Home():
     datos.write("##")
     datos1, datos2 = st.columns(2)
     with datos1:
+        datos1.write("##")
         textdata="""Nuestro análisis de datos comenzará con una exploración exhaustiva del conjunto de datos,
                   identificando su tamaño y las variables más relevantes. Luego, nos sumergiremos en el mundo
                   de la correlación para comprender las interacciones dentro de los datos. A continuación, 
@@ -115,16 +135,26 @@ def Home():
                  """
         st.markdown(f'<div style="text-align: justify; font-size: 22px">{textdata}</div>',unsafe_allow_html=True)
     with datos2:
-        st_lottie(lottie,height= 400)
-
+        st_lottie(lottie,height= 300)
+    st.write("##")
+    st.write("##")
     datos3, datos4 = st.columns(2)
     with datos3:
-        st_lottie(lottie2,height= 400)
+        st_lottie(lottie2,height= 200)
     textdata2="""En cada etapa, te proporcionaremos códigos de Python utilizando bibliotecas como Pandas, Numpy, 
                  Plotly y Streamlit para que puedas seguir y aprender junto a nosotros.
                 """
+    #datos4.write("##")
+    #datos4.write("##")
     datos4.markdown(f'<div style="text-align: justify; font-size: 22px">{textdata2}</div>',unsafe_allow_html=True)      
-
+    
+    code_style = """
+            <style>.stApp pre {background-color: #2E2E2E !important; /* Color de fondo oscuro */
+                    color: #FFFFFF !important; /* Color del texto blanco */}
+            </style>
+                     """
+    datos4.markdown(code_style, unsafe_allow_html=True)
+    datos4.code("print('Hello Wolrd')",language="python")
     # image_path = r"imagen/smartcity.png"
     # image = Pillow.open(image_path)
     # st.image(image, use_column_width=True, caption="Imagen Smart City")
@@ -480,7 +510,7 @@ def Data_Insight():
 #ABOUT ME
 def About_Me():
     about = st.container()
-    st.header("About Me 🔍")
+    st.header("About Me")
     emppp1,image_colum, emppp2  = st.columns(3)
     emppp1.empty()
     with image_colum:
