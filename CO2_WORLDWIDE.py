@@ -533,7 +533,7 @@ def About_Me():
     st.markdown(f'<div style="text-align: justify; font-size: 23px">{aboutmetext}</div>',unsafe_allow_html=True)
     st.markdown(f'<div style="text-align: justify; font-size: 23px">{aboutmetext2}</div>',unsafe_allow_html=True)
     st.write("##")
-    with open("DataSets/CV-Ramiro Fernández de Ullivarri PMO.pdf", "rb") as file:
+    with open(r"DataSets/CV-Ramiro Fernández de Ullivarri PMO.pdf", "rb") as file:
         descargarCV= st.download_button(
         label="Descargar CV",
         data=file,
