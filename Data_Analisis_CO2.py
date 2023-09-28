@@ -294,9 +294,7 @@ histogram_fig = px.histogram(x=residuos,
 
         """
 ajuste_code="""r2 = r2_score(y, modelo.predict(x))
-mse = mean_squared_error(y, modelo.predict(x))
 
 print(f"Coeficiente de determinación (R^2): {r2}")
-print(f"Error cuadrático medio (MSE): {mse}")
 
 """

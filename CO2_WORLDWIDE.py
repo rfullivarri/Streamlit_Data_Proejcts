@@ -455,8 +455,8 @@ def Data_Insight():
     st.write("##")
 #COHEFICIENTE DE DETERMINACION R2
     st.subheader("Ahora evaluamos la estadistia de calidad de ajuste")
-    ajuste="""Evaluar estadísticas de calidad del ajuste, como el coeficiente de determinación (R^2) 
-                y el error cuadrático medio (MSE). Estas métricas te darán una idea de cuánta variabilidad de los 
+    ajuste="""Evaluar estadísticas de calidad del ajuste, como el coeficiente de determinación (R^2).
+             Esta métricas te darán una idea de cuánta variabilidad de los 
                 datos es explicada por el modelo y cuán bien se ajusta a los datos."""
     st.markdown(f"<div style='text-align: justify; font-size: 20px;'>{ajuste}</div>", unsafe_allow_html=True)
     code_style = """
@@ -466,12 +466,10 @@ def Data_Insight():
                      """
     st.markdown(code_style, unsafe_allow_html=True)
     st.code(ajuste_code,language="python")
-    empi1,col5,col6,empi2=st.columns((1,1,1,1))
+    empi1,col5,empi2=st.columns((1,1,1))
     empi1.empty()
     col5.markdown(centrar_texto_css, unsafe_allow_html=True)
-    col5.metric(label="**Coeficiente de determinación R^2**", value=f'0.8167')
-    col6.markdown(centrar_texto_css, unsafe_allow_html=True)
-    col6.metric(label="**Error cuadrático medio (MSE)**", value=f'139153.04')
+    col5.metric(label="**Coeficiente de determinación R^2**", value=f'0.8167%')
     empi2.empty()
     st.write("##")
     coefi="""Un coeficiente de determinación (R^2) de 0.8167 es relativamente alto, 
@@ -527,7 +525,7 @@ def About_Me():
              las últimas tecnologías que impactan en el mercado, siempre buscando innovaciones 
              que simplifiquen nuestras vidas y nos conecten de formas más efectivas.
             """
-    aboutmetext2="""Soy un Ingeniero Industrial enfocado enfocado en el analisis de datos con una pasión por 
+    aboutmetext2="""Soy un Ingeniero Industrial enfocado en el analisis de datos con una pasión por 
                 la innovación y la mejora continua. Hace mas de un año que ingrese a el mundo apasionante de data analisis 
                 con Python y la programacion.Estoy emocionado por las oportunidades futuras y 
                 estoy seguro de que mi experiencia y dedicación seguirán impulsando el éxito en los proyectos 
@@ -535,7 +533,7 @@ def About_Me():
     st.markdown(f'<div style="text-align: justify; font-size: 23px">{aboutmetext}</div>',unsafe_allow_html=True)
     st.markdown(f'<div style="text-align: justify; font-size: 23px">{aboutmetext2}</div>',unsafe_allow_html=True)
     st.write("##")
-    with open("DataSets/CV-Ramiro Fernandez de Ullivarri PMO (1).pdf", "rb") as file:
+    with open("DataSets/CV-Ramiro Fernández de Ullivarri PMO.pdf", "rb") as file:
         descargarCV= st.download_button(
         label="Descargar CV",
         data=file,
