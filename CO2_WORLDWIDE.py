@@ -84,7 +84,7 @@ def Home():
     kaggle1.image(r"Images/kaggle_logo_icon_168474.png")
     #pytt2.write("##")
     pytt2.image(r"Images/Python-logo-notext.svg.png",width=60)
-    k_y_text="""Vamos a utilizar una base de datos de Kaggle y Python para realizar un análisis de 
+    k_y_text="""Vamos a utilizar una base de datos de Kaggle y Python como lenguaje de programacion para realizar el análisis de 
                 emisiones de CO2 de países. Esta combinación nos permitirá aprender y mejorar nuestras habilidades
                   en ciencia de datos, al mismo tiempo que enriquecerá nuestro portafolio profesional.
                 """
