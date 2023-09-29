@@ -141,7 +141,7 @@ def Home():
     datos3, datos4 = st.columns(2)
     with datos3:
         st_lottie(lottie2,height= 200)
-    textdata2="""En cada etapa, te proporcionaremos códigos de Python utilizando bibliotecas como Pandas, Numpy, 
+    textdata2="""En cada etapa, proporcionaremos códigos de Python utilizando bibliotecas como Pandas, Numpy, 
                  Plotly y Streamlit para que puedas seguir y aprender junto a nosotros.
                 """
     #datos4.write("##")
@@ -213,7 +213,7 @@ def Data_Insight():
         #80/20
         centrar_texto_css = """<style>.centrar-texto {text-align: center;}</style>"""
         insight_3.markdown(centrar_texto_css, unsafe_allow_html=True)
-        insight_3.metric(label="**COUNTRIES WHO MAKE 80/20**", value="30" , delta="WORLDWIDE",delta_color="off")
+        insight_3.metric(label="**COUNTRIES WHO MAKE 80/20**", value="30" , delta="OF CO2 WORLDWIDE",delta_color="off")
     empty2.empty()
     st.write("##")
     #EXPANCION CODIGO
@@ -519,15 +519,15 @@ def About_Me():
         
     st.write("---")
     aboutmetext=""" 
-            Soy Ramiro Fernandez de Ullivarri, un profesional con experiencia en Gestión de Proyectos. 
+            Soy Ramiro Fernandez de Ullivarri, un profesional con experiencia en Gestión de Proyectos.
              Mi enfoque no se limita solo a las habilidades técnicas, sino que también comprendo las 
              necesidades del equipo y la visión empresarial. Me apasiona mantenerme al día con 
              las últimas tecnologías que impactan en el mercado, siempre buscando innovaciones 
              que simplifiquen nuestras vidas y nos conecten de formas más efectivas.
             """
-    aboutmetext2="""Soy un Ingeniero Industrial enfocado en el analisis de datos con una pasión por 
+    aboutmetext2="""Soy un Ingeniero Industrial enfocado en el Analisis de Datos con una pasión por 
                 la innovación y la mejora continua. Hace mas de un año que ingrese a el mundo apasionante de data analisis 
-                con Python y la programacion.Estoy emocionado por las oportunidades futuras y 
+                con Python y la programacion. Estoy emocionado por las oportunidades futuras y 
                 estoy seguro de que mi experiencia y dedicación seguirán impulsando el éxito en los proyectos 
                 venideros."""
     st.markdown(f'<div style="text-align: justify; font-size: 23px">{aboutmetext}</div>',unsafe_allow_html=True)
