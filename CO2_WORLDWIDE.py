@@ -229,7 +229,7 @@ def Data_Insight():
 #GRAFICO1
     st.write("##")
     column_1 , column_2= st.columns(2)
-    column_1.subheader(""" TOP 10 paises de **mayor** emision de CO2 2023 🍂""")
+    column_1.subheader("""TOP 10 paises de **mayor** emision de CO2 2023🍂""")
     df_co2_23_by_country= (df.sort_values(by="Co2-Emissions 2023",ascending=False)).set_index("Country").head(10)
     df_co2_23_by_country = df_co2_23_by_country[::-1] #invertir el df para grafico de barras
     #Crear el gráfico de barras verticales con Plotly
@@ -245,8 +245,8 @@ def Data_Insight():
     column_1.plotly_chart(fig, use_container_width=True)
 #GRAFICO2
     st.write("##")
-    column_2.subheader("""  TOP 10 paises de **menor** emision de CO2 2023 🍃""")
-    df_co2_23_by_country= (df.sort_values(by="Co2-Emissions 2023",ascending=False)).set_index("Country").tail(10)
+    column_2.subheader("""TOP 10 paises de **menor** emision de CO2 2023🍃""")
+    df_co2_23_by_country= (df.sort_values(by="Co2-Emissions 2023",ascending=True)).set_index("Country").tail(10)
     df_co2_23_by_country = df_co2_23_by_country[::-1] #invertir el df para grafico de barras
     #Crear el gráfico de barras verticales con Plotly
     fig2 = px.bar(df_co2_23_by_country, x="Co2-Emissions 2023", y=df_co2_23_by_country.index, orientation="h",
