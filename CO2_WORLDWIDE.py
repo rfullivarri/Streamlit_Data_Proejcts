@@ -24,7 +24,7 @@ url_animacion2="https://lottie.host/f75d7b0d-c780-4eea-ab6c-12bb50e05e86/7zuGX4A
 url_animacion3="https://lottie.host/2d7bb8cf-97a8-4edc-b8d4-0f06d644a265/kU7yIyXa6B.json"
 url_animacion4="https://lottie.host/dbf8d8a4-2eb6-4234-8c34-235c0e7d0bcd/lJfUkLvumW.json"
 url_animacion5="https://lottie.host/e9b9a412-7bc0-4c0c-9357-eb37b5dc6b43/eUrtcdExIJ.json"
-pdf_url= r"DataSets/CV-Ramiro Fernandez de Ullivarri PMO (1).pdf"
+#pdf_url= r"DataSets/CV-Ramiro Fernandez de Ullivarri PMO (1).pdf"
 
 #Animaciones
 def load_lottieurl(url):
@@ -39,27 +39,29 @@ lottie4= load_lottieurl(url_animacion4)
 lottie5= load_lottieurl(url_animacion5)
 
 
-
 #CSS
 def local_css(file_name):
     with open(file_name) as f:
         st.markdown(f"<style>{f.read()}</style>", unsafe_allow_html=True)
 local_css("Styles/co2ww.css")
 
-#Menu
+#MENU
 def on_change(key):
     selection = st.session_state[key]
 
     return str(selection)
-
 menuopt = ["Home","Data & Insight","About Me"]
-
 selected5 = option_menu(None, options=menuopt,
                         icons=['house', 'data', "person"],#, 'phone'],
                         on_change=on_change, key='menu_5', orientation="horizontal")
 
 
-#🌎
+
+
+
+
+
+
 #HOME
 def Home():
     home= st.container()
@@ -155,13 +157,16 @@ def Home():
                      """
     datos4.markdown(code_style, unsafe_allow_html=True)
     datos4.code("print('Hello Wolrd')",language="python")
-    # image_path = r"imagen/smartcity.png"
-    # image = Pillow.open(image_path)
-    # st.image(image, use_column_width=True, caption="Imagen Smart City")
-    
-    # contact=st.container()
-    # contact.write("---")
-    
+  
+
+
+
+
+
+
+
+
+
 
 
 #DATA INSIGHTS
@@ -321,9 +326,6 @@ def Data_Insight():
     st.header("Next steps 🧭")
     st.write("##")
     st.markdown("<div style='text-align: center; font-size: 20px;'>Queremos ir un paso mas alla. Para eso necesitamos entender mejor los datos.Por eso hicimos esta matriz de correlacion para entender que datos estas realcionados linealmente.<div>", unsafe_allow_html=True)
-        # st.write("""Queremos ir con el analisis un paso mas alla. Para eso necesitamos entender mejor los datos.
-        #            Por eso hicimo esta matriz de correlacion para entender que datos estas realcionados linealmente.
-        #         """)
     columas__mx_corr = ['Density\n (P/Km2)', 'Agricultural Land( %)',
                         'Land Area(Km2)', 'Armed Forces size', 'Birth Rate', 'Calling Code',
                         'Co2-Emissions 2023', 'CPI', 'CPI Change (%)',
@@ -359,6 +361,7 @@ def Data_Insight():
     # Muestra el gráfico en Streamlit
     corr= st.container()
     corr.plotly_chart(fig, use_container_width=True)
+
 #RESULTADO DE MATRIZ DE CORRELACION
     colu1, colu2 =st.columns(2)
     correlat="""Vemos que tenemos 3 variables fuertemente correlacionadas con las emisiones de CO2. 
@@ -373,6 +376,7 @@ def Data_Insight():
     colu2.image(r"Images/White Gradient Creative Professional Modern Business Company Corporate Presentation Template.png",width=350)
     st.write("##")
     st.write("##")
+
 #MODELO DE REGRESION LINEAL
     st.markdown("<h2 style='text-align: left; font-size: 35px;'>Modelo de Regresion Lineal 🖇</h2>", unsafe_allow_html=True)
     st.write("##")
@@ -390,6 +394,7 @@ def Data_Insight():
     
     st.write("##")
     st.write("##")
+
 #ARMADO DEL MODELO
     st.subheader("Utilizando la libreria de Scikit-Leard realizamos el Modelos")
     code_style = """
@@ -400,6 +405,7 @@ def Data_Insight():
     st.markdown(code_style, unsafe_allow_html=True)
     st.code(regression_model,language="python")
     st.write("##")
+
 #ANALISIS DE RESIDUOS
     st.subheader("Luego tenemos que analizar si el modelo esta alineado a la realidad")
     st.write("Para eso primero vemos a realizar un análisis de residuos. Los residuos son la diferencia entre los valores observados y los valores predichos por el modelo. Puedes obtener los residuos de la siguiente manera:")
@@ -413,6 +419,7 @@ def Data_Insight():
     st.write("Donde y son los valores observados (CO2 en este caso) y modelo.predict(x) son las predicciones del modelo para los mismos valores de x (GDP en este caso).")
     st.write("##")
     st.write("##")
+
 #GRAFICO 3 HISTOGRAMA
     colres1,colres2 = st.columns(2)
     colres1.subheader("Despues graficamos los residuos")
@@ -453,6 +460,7 @@ def Data_Insight():
     st.markdown(f"<div style='text-align: justify; font-size: 20px;'>{rtohisto}</div>", unsafe_allow_html=True)
     st.write("##")
     st.write("##")
+
 #COHEFICIENTE DE DETERMINACION R2
     st.subheader("Ahora evaluamos la estadistia de calidad de ajuste")
     ajuste="""Evaluar estadísticas de calidad del ajuste, como el coeficiente de determinación (R^2).
@@ -483,10 +491,10 @@ def Data_Insight():
     st.markdown(f"<div style='text-align: justify; font-size: 20px;'>{coefi}</div>", unsafe_allow_html=True)
     st.write("##")
     st.write("##")
-    #st.write(f"Nuevo valor de GDP en millones de pesos")
-    nuevo_GDP = st.number_input("Ingrese el nuevo valor de GDP en millones de pesos")
+    
+    nuevo_GDP = st.number_input("Ingrese el nuevo valor de GDP en millones de UDS")
 
-    # Agregar un botón para realizar la consulta al modelo
+
     if st.button("Realizar predicción de CO2"):
         # Realizar la predicción cuando se presione el botón
         prediccion_CO2 = modelo.predict(np.array([[nuevo_GDP]]))
