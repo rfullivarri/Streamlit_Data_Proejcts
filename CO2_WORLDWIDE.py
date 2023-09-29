@@ -246,8 +246,8 @@ def Data_Insight():
 #GRAFICO2
     st.write("##")
     column_2.subheader("""TOP 10 paises de **menor** emision de CO2 2023🍃""")
-    df_co2_23_by_country= (df.sort_values(by="Co2-Emissions 2023",ascending=True)).set_index("Country").tail(10)
-    df_co2_23_by_country = df_co2_23_by_country[::-1] #invertir el df para grafico de barras
+    df_co2_23_by_country= (df.sort_values(by="Co2-Emissions 2023",ascending=False)).set_index("Country").tail(10)
+    #df_co2_23_by_country = df_co2_23_by_country[::-1] #invertir el df para grafico de barras
     #Crear el gráfico de barras verticales con Plotly
     fig2 = px.bar(df_co2_23_by_country, x="Co2-Emissions 2023", y=df_co2_23_by_country.index, orientation="h",
              text="Co2-Emissions 2023", color_discrete_sequence=["#FFF1AF"])
@@ -306,7 +306,7 @@ def Data_Insight():
                         font=dict(color="white"))       
 
     st.plotly_chart(fig3, use_container_width=True)
-     #EXPANCION CODIGO
+    #EXPANCION CODIGO
     with st.expander("Ver Codigo </> Area Chart"):
         code_style = """
             <style>.stApp pre {background-color: #2E2E2E !important; /* Color de fondo oscuro */
