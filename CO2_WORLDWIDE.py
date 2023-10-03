@@ -373,7 +373,8 @@ def Data_Insight():
     correlat3="""Por razones prácticas, solo se analizará la relación entre CO2 y el Producto Interno Bruto (GDP)
         de un país utilizando un Modelo de Regresión Lineal. Además, se evaluará la precisión del modelo
           para determinar su confiabilidad."""
-    
+    colu1.write("##")
+    colu1.write("##")
     colu1.markdown(f"<div style='text-align: justify; font-size: 20px;'>{correlat}</div>", unsafe_allow_html=True)
     colu1.write("##")
     colu1.markdown(f"<div style='text-align: left; font-size: 20px;'>{correlat2}</div>", unsafe_allow_html=True)
