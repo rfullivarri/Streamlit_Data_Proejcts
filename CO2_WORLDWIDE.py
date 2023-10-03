@@ -491,48 +491,43 @@ def Data_Insight():
                         border_left_color= "#FFF1AF",
                         box_shadow = False)
     with insight_1:
-        #Countrys
-        centrar_texto_css = """<style>.centrar-texto {text-align: center;}</style>"""
-        insight_1.markdown(centrar_texto_css, unsafe_allow_html=True)
+    #PAISES
         insight_1.metric(label="**PAISES**", value=f'🌎{len(df["Country"].unique())}', delta="EN EL ANALISIS", delta_color="off")
 
     with insight_2:
-        #CO2 (mT)
-        centrar_texto_css = """<style>.centrar-texto {text-align: center;}</style>"""
-        insight_2.markdown(centrar_texto_css, unsafe_allow_html=True)
+    #CO2 (mT)
         co2_23= str(round(df["Co2-Emissions 2023"].sum(),1))
         delta=str(round(df["Co2-Emissions 2021"].sum()-df["Co2-Emissions 2023"].sum(),1))
         insight_2.metric(label="**CO2 WORLDWIDE (Millones Tn) HASTA JUNIO 2023**", value=co2_23, delta=f'{delta} (2021)*',delta_color="off")
         co2_text_23=""" En solo 6 meses se emitío el 97% de CO2 generado en 2021. Datos hasta junio 2023"""
         insight_2.markdown(f"<div style='text-align: justify; font-size: 15px;'>{co2_text_23}</div>", unsafe_allow_html=True)
     with insight_3:
-        #80/20
-        centrar_texto_css = """<style>.centrar-texto {text-align: center;}</style>"""
-        insight_3.markdown(centrar_texto_css, unsafe_allow_html=True)
+    #80/20
         insight_3.metric(label="**PAISES QUE HACEN EL 80/20**", value="🗺30" , delta="DE CO2 WORLDWIDE",delta_color="off")
         insight_3.markdown(f"<div style='text-align: justify; font-size: 15px;'>El 80% de la emision de CO2 mundial esta consentrada en 30 paises.</div>",unsafe_allow_html=True)
     empty2.empty()
     
     st.divider()
+    
     empty111,insight_111, insight_222, insight_333, empty222= st.columns((0.5,2,2,2,0.5))
     empty111.empty()
     with insight_111:
-        #GDP
+    #GDP
         insight_111.metric(label="**CORRELACION GDP & CO2**", value=f'➕💰=➕CO2', delta="MATRIZ ECONOMICA", delta_color="off")
         gdp_text="""La relación lineal entre GDP (Producto Interno Bruto) y CO2 se debe a que las economías
           más fuertes suelen ser las más activas y demandan más energía, generada mediante métodos convencionales 
           como el uso de carbón y gas."""
         insight_111.markdown(f"<div style='text-align: justify; font-size: 15px;'>{gdp_text}</div>", unsafe_allow_html=True)
-        #insight_111.markdown("Hay una relacion lineal entre GDP y CO2. Esto se da principalmente por que las economias mas fuertes son a la vez las mas activas y necesita de mas energia la cual generas por metodos envencionales como carbon y gas.")
+
 
     with insight_222:
-        #POBLACION HURBANA
+    #POBLACION HURBANA
         insight_222.metric(label="**POBLACION URBANA**", value=f'➕🚻=➕CO2', delta="+ CONSCETRACION URBANA + CO2", delta_color="off")
         city_text=""" A mayor concentracion de poblacion en las ciudades se denota un gran aumento del CO2 debido
         a las actividades que se realizan en la ciudad como entretenimiento y trabajo"""
         insight_222.markdown(f"<div style='text-align: justify; font-size: 15px;'>{city_text}</div>", unsafe_allow_html=True)
     with insight_333:
-        #POBLACION HURBANA
+    #PERO DECADA
         insight_333.metric(label="**PEOR DECADA DE C02**", value=f'2000-2010', delta="55% DE LOS ULTIMOS 30 AÑOS", delta_color="off")
         decade_text=""" Entre 2000 y 2010 se emitio el 55% de CO2 de las ultimas 3 decadas, mas del doble que en las otras 2 decadas analzadas"""
         insight_333.markdown(f"<div style='text-align: justify; font-size: 15px;'>{city_text}</div>", unsafe_allow_html=True)
