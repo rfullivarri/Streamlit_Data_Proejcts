@@ -502,8 +502,8 @@ def Data_Insight():
         insight_2.markdown(centrar_texto_css, unsafe_allow_html=True)
         co2_23= str(round(df["Co2-Emissions 2023"].sum(),1))
         delta=str(round(df["Co2-Emissions 2021"].sum()-df["Co2-Emissions 2023"].sum(),1))
-        insight_2.metric(label="**CO2 WORLDWIDE (Millones Tn) in 2023**", value=co2_23, delta=f'{delta} (2021)*',delta_color="inverse")
-        co2_text_23=""" Ya superamos el 2021 y no terminamos el año. Datos hasta junio 2023"""
+        insight_2.metric(label="**CO2 WORLDWIDE (Millones Tn) in 2023**", value=co2_23, delta=f'{delta} (2021)*',delta_color="off")
+        co2_text_23=""" En solo 6 meses se emitío el 97% de CO2 generado en 2021. Datos hasta junio 2023"""
         insight_2.markdown(f"<div style='text-align: justify; font-size: 15px;'>{co2_text_23}</div>", unsafe_allow_html=True)
     with insight_3:
         #80/20
@@ -520,9 +520,9 @@ def Data_Insight():
     with insight_111:
         #GDP
         insight_111.metric(label="**CORRELACION GDP & CO2**", value=f'➕💰=➕CO2', delta="MATRIZ ECONOMICA", delta_color="off")
-        gdp_text="""Hay una relacion lineal entre GDP y CO2. Esto se da principalmente por que 
-        las economias mas fuertes son a la vez las mas activas y necesita de mas energia la cual 
-        generas por metodos envencionales como carbon y gas."""
+        gdp_text="""La relación lineal entre GDP (Producto Interno Bruto) y CO2 se debe a que las economías
+          más fuertes suelen ser las más activas y demandan más energía, generada mediante métodos convencionales 
+          como el uso de carbón y gas."""
         insight_111.markdown(f"<div style='text-align: justify; font-size: 15px;'>{gdp_text}</div>", unsafe_allow_html=True)
         #insight_111.markdown("Hay una relacion lineal entre GDP y CO2. Esto se da principalmente por que las economias mas fuertes son a la vez las mas activas y necesita de mas energia la cual generas por metodos envencionales como carbon y gas.")
 
