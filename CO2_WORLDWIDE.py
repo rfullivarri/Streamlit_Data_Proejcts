@@ -459,8 +459,8 @@ def Data_Insight():
                  """
         st.markdown(code_style, unsafe_allow_html=True)
         st.code(histograma_code,language="python")
-    rtohisto="""*Se observa en el histograma que no hay una gran dispersion en los datos, pero esto no
-                es suficiente para considerar el modelo alineado a la realidad.*"""
+    rtohisto="""Se observa en el histograma que no hay una gran dispersion en los datos, pero esto no
+                es suficiente para considerar el modelo alineado a la realidad."""
     st.markdown(f"<div style='text-align: center; font-size: 30px;'>{rtohisto}</div>", unsafe_allow_html=True)
     st.write("##")
     st.write("##")
