@@ -189,47 +189,6 @@ def Data_Insight():
     st.markdown("<h1 style='text-align: right; font-size: 13px;'>*Los valores None no los necesitamos para este analisis*</h1>", unsafe_allow_html=True)
     st.dataframe(df)
 
-#PRIMEROS INSIGHTS
-    st.header(""" Primeros Insights 👨‍💻""")
-    st.write("##")
-    empty1,insight_1, insight_2, insight_3, empty2= st.columns((0.5,2,2,2,0.5))
-    empty1.empty()
-    style_metric_cards( background_color = "#66806A",
-                        border_size_px = 1,
-                        border_color= "#FFF1AF",
-                        border_radius_px= 9,
-                        border_left_color= "#FFF1AF",
-                        box_shadow = False)
-    with insight_1:
-        #Countrys
-        centrar_texto_css = """<style>.centrar-texto {text-align: center;}</style>"""
-        insight_1.markdown(centrar_texto_css, unsafe_allow_html=True)
-        insight_1.metric(label="**COUNTRIES**", value=f'{len(df["Country"].unique())}', delta="FOR ANALYSIS", delta_color="off")
-
-    with insight_2:
-        #CO2 (mT)
-        centrar_texto_css = """<style>.centrar-texto {text-align: center;}</style>"""
-        insight_2.markdown(centrar_texto_css, unsafe_allow_html=True)
-        co2_23= str(round(df["Co2-Emissions 2023"].sum(),1))
-        delta=str(round(df["Co2-Emissions 2021"].sum()-df["Co2-Emissions 2023"].sum(),1))
-        insight_2.metric(label="**CO2 WORLDWIDE (Millons Tn) in 2023**", value=co2_23, delta=f'{delta} (2021)*',delta_color="inverse")
-
-    with insight_3:
-        #80/20
-        centrar_texto_css = """<style>.centrar-texto {text-align: center;}</style>"""
-        insight_3.markdown(centrar_texto_css, unsafe_allow_html=True)
-        insight_3.metric(label="**COUNTRIES WHO MAKE 80/20**", value="30" , delta="OF CO2 WORLDWIDE",delta_color="off")
-    empty2.empty()
-    st.write("##")
-    #EXPANCION CODIGO
-    with st.expander("Ver Codigo </> Insight"):
-        code_style = """
-            <style>.stApp pre {background-color: #2E2E2E !important; /* Color de fondo oscuro */
-                    color: #FFFFFF !important; /* Color del texto blanco */}
-            </style>
-                     """
-        st.markdown(code_style, unsafe_allow_html=True)
-        st.code(primeros_insights,language="python")
 
 #GRAFICO1
     st.write("##")
@@ -361,7 +320,8 @@ def Data_Insight():
     # Muestra el gráfico en Streamlit
     corr= st.container()
     corr.plotly_chart(fig, use_container_width=True)
-
+    st.write("##")
+    st.write("##")
 #RESULTADO DE MATRIZ DE CORRELACION
     colu1, colu2 =st.columns(2)
     correlat="""Se ha identificado que 3 variables están fuertemente correlacionadas con las emisiones
@@ -491,6 +451,7 @@ def Data_Insight():
     st.code(ajuste_code,language="python")
     empi1,col5,empi2=st.columns((1,1,1))
     empi1.empty()
+    centrar_texto_css = """<style>.centrar-texto {text-align: center;}</style>"""
     col5.markdown(centrar_texto_css, unsafe_allow_html=True)
     col5.metric(label="**Coeficiente de determinación R^2**", value=f'0.8167%')
     empi2.empty()
@@ -516,7 +477,61 @@ def Data_Insight():
         prediccion_CO2 = round(prediccion_CO2[0], 10)
         st.write(f"Predicción de CO2 en millones de toneladas: {prediccion_CO2}")
 
+#PRIMEROS INSIGHTS
+    st.header(""" Conclusiones & Insights 👨‍💻""")
+    st.write("##")
+    empty1,insight_1, insight_2, insight_3, empty2= st.columns((0.5,2,2,2,0.5))
+    empty1.empty()
+    style_metric_cards( background_color = "#66806A",
+                        border_size_px = 1,
+                        border_color= "#FFF1AF",
+                        border_radius_px= 9,
+                        border_left_color= "#FFF1AF",
+                        box_shadow = False)
+    with insight_1:
+        #Countrys
+        centrar_texto_css = """<style>.centrar-texto {text-align: center;}</style>"""
+        insight_1.markdown(centrar_texto_css, unsafe_allow_html=True)
+        insight_1.metric(label="**COUNTRIES**", value=f'{len(df["Country"].unique())}', delta="FOR ANALYSIS", delta_color="off")
 
+    with insight_2:
+        #CO2 (mT)
+        centrar_texto_css = """<style>.centrar-texto {text-align: center;}</style>"""
+        insight_2.markdown(centrar_texto_css, unsafe_allow_html=True)
+        co2_23= str(round(df["Co2-Emissions 2023"].sum(),1))
+        delta=str(round(df["Co2-Emissions 2021"].sum()-df["Co2-Emissions 2023"].sum(),1))
+        insight_2.metric(label="**CO2 WORLDWIDE (Millons Tn) in 2023**", value=co2_23, delta=f'{delta} (2021)*',delta_color="inverse")
+
+    with insight_3:
+        #80/20
+        centrar_texto_css = """<style>.centrar-texto {text-align: center;}</style>"""
+        insight_3.markdown(centrar_texto_css, unsafe_allow_html=True)
+        insight_3.metric(label="**COUNTRIES WHO MAKE 80/20**", value="30" , delta="OF CO2 WORLDWIDE",delta_color="off")
+    empty2.empty()
+    st.write("##")
+    #EXPANCION CODIGO
+    with st.expander("Ver Codigo </> Insight"):
+        code_style = """
+            <style>.stApp pre {background-color: #2E2E2E !important; /* Color de fondo oscuro */
+                    color: #FFFFFF !important; /* Color del texto blanco */}
+            </style>
+                     """
+        st.markdown(code_style, unsafe_allow_html=True)
+        st.code(primeros_insights,language="python")
+
+    empty111,insight_111, insight_222, insight_333, empty222= st.columns((0.5,2,2,2,0.5))
+    empty111.empty()
+    with insight_111:
+        #GDP
+        centrar_texto_css = """<style>.centrar-texto {text-align: center;}</style>"""
+        insight_111.markdown(centrar_texto_css, unsafe_allow_html=True)
+        insight_111.text(body="Hay una relacion lineal entre GDP y CO2. Esto se da principalmente por que las economias mas fuertes son a la vez las mas activas y necesita de mas energia la cual generas por metodos envencionales como carbon y gas.")
+
+    with insight_222:
+        #GDP
+        centrar_texto_css = """<style>.centrar-texto {text-align: center;}</style>"""
+        insight_222.markdown(centrar_texto_css, unsafe_allow_html=True)
+        insight_222.metric(label="**GDP & CO2**", value=f'^GDP = ^ CO2', delta="A MAYOR GDP MAS EMISION CO2", delta_color="off")
 
 
     
