@@ -382,7 +382,7 @@ def Data_Insight():
     colu1.write("##")
     colu1.markdown(f"<div style='text-align: justify; font-size: 20px;'>{correlat3}</div>", unsafe_allow_html=True)
     
-    colu2.image(r"Images/White Gradient Creative Professional Modern Business Company Corporate Presentation Template.png",width=350)
+    colu2.image(r"Images/White Gradient Creative Professional Modern Business Company Corporate Presentation Template.png",width=350,use_column_width=True)
     st.write("##")
     st.write("##")
 
