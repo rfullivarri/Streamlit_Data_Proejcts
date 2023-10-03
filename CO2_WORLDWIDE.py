@@ -512,7 +512,6 @@ def Data_Insight():
         insight_3.metric(label="**PAISES QUE HACEN EL 80/20**", value="🗺30" , delta="DE CO2 WORLDWIDE",delta_color="off")
         insight_3.markdown(f"<div style='text-align: justify; font-size: 15px;'>El 80% de la emision de CO2 mundial esta consentrada en 30 paises.</div>",unsafe_allow_html=True)
     empty2.empty()
-    st.write("##")
     
     st.divider()
     empty111,insight_111, insight_222, insight_333, empty222= st.columns((0.5,2,2,2,0.5))
