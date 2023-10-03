@@ -366,9 +366,8 @@ def Data_Insight():
     colu1, colu2 =st.columns(2)
     correlat="""Se ha identificado que 3 variables están fuertemente correlacionadas con las emisiones
       de CO2."""
-    correlat2="""1. A mayor GDP mayor emision de CO2.\n
-       2. A mayor poplacion x pais, mayor emision de CO2.\n
-       3. A mayor cocentracion urbana es aun mayor la emision de CO2."""
+    correlat2="""1. A mayor GDP mayor emision de CO2.\n 2. A mayor poplacion x pais, mayor emision de CO2.\n
+    3. A mayor cocentracion urbana es aun mayor la emision de CO2."""
 
     correlat3="""Por razones prácticas, solo se analizará la relación entre CO2 y el Producto Interno Bruto (GDP)
         de un país utilizando un Modelo de Regresión Lineal. Además, se evaluará la precisión del modelo
