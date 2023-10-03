@@ -73,22 +73,22 @@ def Home():
         st_lottie(lottie4,width=150)
     #home.title("CO2 WORDLWIDE ANALSIS 🌎")
     st.header("Por que")
-    descripcion="""En CO2 WORLDWIDE, nos embarcamos en la misión de explorar la situación
-                actual del dióxido de carbono en todo el mundo, un gas que afecta directamente
-                a nuestro planeta. Con la mira puesta en la increíble cifra de más de 40.000 millones
-                de toneladas de CO2 emitidas anualmente, nuestro objetivo principal es destacar la importancia
-                de comprender estos números a través de datos y análisis sólidos. Nos adentramos en el 
-               fascinante mundo de los datos para revelar patrones y tendencias que arrojarán luz sobre la
-                problemática del CO2 y su impacto en nuestro entorno."""
+    descripcion="""CO2 WORLDWIDE tiene como mision explorar la situacion actual del dioxido
+      de carbono en el mundo, un gas que afecta directamente al planeta. Con la mirada puesta en la 
+      increible cifra de mas de 40.000 millones  de toneladas de CO2 emitidas anualmente, el objetivo 
+      principal de este analisis es destacar la importancia de comprender estos numeros atraves de datos 
+      y analisis solidos. Se busca adentrarse en el facinante mundo de los datos para revelar patrones y 
+      tendencias que aclararan la problemantica del CO2 y su impracto en el entorno"""
     st.markdown(f'<div style="text-align: justify">{descripcion}</div>',unsafe_allow_html=True)
     st.write("##")
     kaggle1,pytt2,text21= st.columns((1,0.5,4))
     kaggle1.image(r"Images/kaggle_logo_icon_168474.png")
     #pytt2.write("##")
     pytt2.image(r"Images/Python-logo-notext.svg.png",width=60)
-    k_y_text="""Vamos a utilizar una base de datos de Kaggle y Python como lenguaje de programacion para realizar el análisis de 
-                emisiones de CO2 de países. Esta combinación nos permitirá aprender y mejorar nuestras habilidades
-                  en ciencia de datos, al mismo tiempo que enriquecerá nuestro portafolio profesional.
+    k_y_text="""Se utilizará una base de datos de Kaggle y Python como lenguaje de programación para llevar
+      a cabo el análisis de las emisiones de CO2 de varios países. Esta combinación permitirá adquirir
+        experiencia y mejorar habilidades en ciencia de datos, al mismo tiempo que enriquecerá el portafolio 
+        profesional
                 """
     text21.markdown(f'<div style="text-align: justify">{k_y_text}</div>',unsafe_allow_html=True)
     
@@ -108,32 +108,32 @@ def Home():
 
     with valor2:
         st.header("Insights ✨")
-        text2="""Obtener valiosos conocimientos y conclusiones sobre el dióxido de carbono (CO2) a partir de nuestros análisis. 
-                 Queremos descubrir patrones ocultos, identificar tendencias preocupantes o alentadoras, 
-                 y en última instancia, contribuir al entendimiento de la importancia de controlar
-                  las emisiones de CO2 para el bienestar de nuestro planeta."""
+        text2="""Se buscará obtener conocimientos y conclusiones valiosas sobre el dióxido de carbono (CO2)
+          a través de los análisis realizados. El objetivo es descubrir patrones ocultos, identificar 
+          tendencias preocupantes o alentadoras y, en última instancia, contribuir al entendimiento de la
+            importancia de controlar las emisiones de CO2 para el bienestar del planeta."""
         st.markdown(f'<div style="text-align: justify">{text2}</div>',unsafe_allow_html=True)
 
     with valor3:
         st.header("Difusión 🤲")
-        text3= """Buscamos informar y educar a la comunidad sobre los hallazgos y 
-                 conclusiones que obtengamos a través de nuestro análisis de datos. Esto incluye la 
-                 creación de contenido educativo, gráficos impactantes y presentaciones accesibles. Ademas se dispondra
-                 de todo el codigo realizado en Python para que se puede respoducir y correguir en caso de ser necesario"""
+        text3= """La intención es informar y educar a la comunidad acerca de los hallazgos y conclusiones
+          obtenidos mediante el análisis de datos. Esto incluirá la creación de contenido educativo,
+            la presentación de gráficos impactantes y la disponibilidad del código realizado en Python 
+            para su reproducción y revisión en caso de ser necesario."""
         st.markdown(f'<div style="text-align: justify">{text3}</div>',unsafe_allow_html=True)
 
     st.write("---")
     datos =st.container()
-    datos.markdown("<h1 style='text-align: center; font-size: 60px;'>Como vamos a hacerlo 📊</h1>", unsafe_allow_html=True)
+    datos.markdown("<h1 style='text-align: center; font-size: 60px;'>Como se va a hacer 📊</h1>", unsafe_allow_html=True)
     #datos.title("Como vamos a hacerlo 📊")
     datos.write("##")
     datos1, datos2 = st.columns(2)
     with datos1:
         datos1.write("##")
-        textdata="""Nuestro análisis de datos comenzará con una exploración exhaustiva del conjunto de datos,
-                  identificando su tamaño y las variables más relevantes. Luego, nos sumergiremos en el mundo
-                  de la correlación para comprender las interacciones dentro de los datos. A continuación, 
-                 emplearemos gráficos para ilustrar los datos y obtener conocimientos. 
+        textdata="""El análisis de datos comenzará con una exploración exhaustiva del conjunto de datos, 
+        identificando su tamaño y las variables más relevantes. 
+        Luego, se examinarán las correlaciones dentro de los datos y se emplearán gráficos 
+        para ilustrar los patrones y obtener conocimientos. 
                  """
         st.markdown(f'<div style="text-align: justify; font-size: 22px">{textdata}</div>',unsafe_allow_html=True)
     with datos2:
@@ -143,8 +143,8 @@ def Home():
     datos3, datos4 = st.columns(2)
     with datos3:
         st_lottie(lottie2,height= 200)
-    textdata2="""En cada etapa, proporcionaremos códigos de Python utilizando bibliotecas como Pandas, Numpy, 
-                 Plotly y Streamlit para que puedas seguir y aprender junto a nosotros.
+    textdata2="""En cada etapa, se proporcionarán códigos de Python utilizando bibliotecas como
+      Pandas, Numpy, Plotly y Streamlit para facilitar el seguimiento y el aprendizaje.
                 """
     #datos4.write("##")
     #datos4.write("##")
@@ -173,7 +173,7 @@ def Home():
 def Data_Insight():
     values =st.container()
     values.title("Data & Insight 🚀")
-    values.markdown("<div style='text-align: center; font-size: 20px;'>Primero preparamos la DB para que podemos trabajar con ella. Depuramos tipo de datos, comas, puntos y simbolos ($,%,& ect)<div>", unsafe_allow_html=True)
+    values.markdown("<div style='text-align: center; font-size: 20px;'>En primer lugar, se preparará la base de datos para su posterior análisis. Esto implicará la limpieza de datos, la corrección de tipos de datos y la eliminación de comas, puntos y símbolos ($, %, &, etc.)<div>", unsafe_allow_html=True)
     values.write("##")
     #EXPANCION CODIGO
     with values.expander("Ver Codigo <> Depuracion de DB"):
@@ -325,7 +325,7 @@ def Data_Insight():
 #MATRIZ DE CORRELACION
     st.header("Next steps 🧭")
     st.write("##")
-    st.markdown("<div style='text-align: center; font-size: 20px;'>Queremos ir un paso mas alla. Para eso necesitamos entender mejor los datos.Por eso hicimos esta matriz de correlacion para entender que datos estas realcionados linealmente.<div>", unsafe_allow_html=True)
+    st.markdown("<div style='text-align: center; font-size: 20px;'>Para una comprensión más profunda de los datos, se ha generado una matriz de correlación que revela las relaciones lineales entre las variables.<div>", unsafe_allow_html=True)
     columas__mx_corr = ['Density\n (P/Km2)', 'Agricultural Land( %)',
                         'Land Area(Km2)', 'Armed Forces size', 'Birth Rate', 'Calling Code',
                         'Co2-Emissions 2023', 'CPI', 'CPI Change (%)',
@@ -364,11 +364,10 @@ def Data_Insight():
 
 #RESULTADO DE MATRIZ DE CORRELACION
     colu1, colu2 =st.columns(2)
-    correlat="""Vemos que tenemos 3 variables fuertemente correlacionadas con las emisiones de CO2. 
-                A fines practicos vamos a analizar solo una. En este caso vamos a analizar la relacion entre
-                CO2 vs GDP. Para eso vamos a realizar un Modelo de Regrecion Lineal que nos ayude a predecir 
-                la emision de CO2 dependiendo del GDP de un pais. Ademas analizaremos que tan presciso es el modelo 
-                para entedender si podemos fiarnos de los resultados"""
+    correlat="""Se ha identificado que 3 variables están fuertemente correlacionadas con las emisiones
+      de CO2. Por razones prácticas, se analizará la relación entre CO2 y el Producto Interno Bruto (GDP)
+        de un país utilizando un Modelo de Regresión Lineal. Además, se evaluará la precisión del modelo
+          para determinar su confiabilidad."""
     colu1.write("##")
     colu1.write("##")
     colu1.markdown(f"<div style='text-align: justify; font-size: 20px;'>{correlat}</div>", unsafe_allow_html=True)
@@ -383,11 +382,15 @@ def Data_Insight():
     colmol1,colmol2= st.columns(2)
     with colmol1:
         st_lottie(lottie3,height= 400)
-    textregre="""Un modelo de regresión lineal es una herramienta estadística que se utiliza para comprender y modelar 
-                 la relación entre una variable dependiente (la que se desea predecir) y una o más variables independientes (predictoras).
-                Su objetivo principal es identificar y cuantificar la relación lineal entre estas variables, 
-                 lo que permite hacer predicciones o estimaciones de la variable dependiente en función de los valores de las variables independientes. 
-                En esencia, un modelo de regresión lineal se utiliza para comprender cómo los cambios en una o varias variables predictoras se relacionan con cambios en la variable que se quiere predecir, lo que resulta útil en tareas como la predicción de ventas, el análisis de tendencias, la evaluación de impacto de variables y la toma de decisiones basada en datos."""
+    textregre="""Un modelo de regresión lineal es una herramienta estadística utilizada 
+    para comprender y modelar la relación entre una variable dependiente (la que se desea predecir)
+    y una o más variables independientes (predictoras). Su objetivo principal es identificar y cuantificar
+    la relación lineal entre estas variables, lo que permite hacer predicciones o estimaciones de la
+    variable dependiente en función de los valores de las variables independientes. En esencia, un
+    modelo de regresión lineal se utiliza para comprender cómo los cambios en una o varias variables
+    predictoras se relacionan con cambios en la variable que se quiere predecir, lo que resulta útil en
+    tareas como la predicción de ventas, el análisis de tendencias, la evaluación del impacto de
+    variables y la toma de decisiones basada en datos."""
     colmol2.write("##")
 
     colmol2.markdown(f"<div style='text-align: justify; font-size: 20px;'>{textregre}</div>", unsafe_allow_html=True)
@@ -527,17 +530,17 @@ def About_Me():
         
     st.write("---")
     aboutmetext=""" 
-            Soy Ramiro Fernandez de Ullivarri, un profesional con experiencia en Gestión de Proyectos.
-             Mi enfoque no se limita solo a las habilidades técnicas, sino que también comprendo las 
-             necesidades del equipo y la visión empresarial. Me apasiona mantenerme al día con 
-             las últimas tecnologías que impactan en el mercado, siempre buscando innovaciones 
-             que simplifiquen nuestras vidas y nos conecten de formas más efectivas.
+            Soy Ramiro Fernández de Ullivarri, un profesional con experiencia sólida en Gestión de Proyectos. Mi enfoque no se limita únicamente a las habilidades técnicas;
+              también tengo una comprensión profunda de las necesidades del equipo y una visión clara de los objetivos empresariales.
+            Me apasiona mantenerme actualizado con las últimas tecnologías que impactan en el mercado, siempre buscando innovaciones 
+            que simplifiquen nuestras vidas y mejoren la eficiencia de nuestras conexiones.
+
+
             """
-    aboutmetext2="""Soy un Ingeniero Industrial enfocado en el Analisis de Datos con una pasión por 
-                la innovación y la mejora continua. Hace mas de un año que ingrese a el mundo apasionante de data analisis 
-                con Python y la programacion. Estoy emocionado por las oportunidades futuras y 
-                estoy seguro de que mi experiencia y dedicación seguirán impulsando el éxito en los proyectos 
-                venideros."""
+    aboutmetext2="""Como Ingeniero Industrial con un enfoque en el Análisis de Datos, hace un tiempo me eh enfocado 
+     en explorar el emocionante mundo de la programación en Python y el análisis de datos. 
+      Estoy emocionado por las oportunidades futuras y confío en que mi experiencia y dedicación seguirán 
+      siendo un motor para el éxito en los proyectos venideros."""
     st.markdown(f'<div style="text-align: justify; font-size: 23px">{aboutmetext}</div>',unsafe_allow_html=True)
     st.markdown(f'<div style="text-align: justify; font-size: 23px">{aboutmetext2}</div>',unsafe_allow_html=True)
     st.write("##")
