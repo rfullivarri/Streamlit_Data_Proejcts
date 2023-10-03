@@ -502,7 +502,7 @@ def Data_Insight():
         insight_2.markdown(centrar_texto_css, unsafe_allow_html=True)
         co2_23= str(round(df["Co2-Emissions 2023"].sum(),1))
         delta=str(round(df["Co2-Emissions 2021"].sum()-df["Co2-Emissions 2023"].sum(),1))
-        insight_2.metric(label="**CO2 WORLDWIDE (Millones Tn) in 2023**", value=co2_23, delta=f'{delta} (2021)*',delta_color="off")
+        insight_2.metric(label="**CO2 WORLDWIDE (Millones Tn) HASTA JUNIO 2023**", value=co2_23, delta=f'{delta} (2021)*',delta_color="off")
         co2_text_23=""" En solo 6 meses se emitío el 97% de CO2 generado en 2021. Datos hasta junio 2023"""
         insight_2.markdown(f"<div style='text-align: justify; font-size: 15px;'>{co2_text_23}</div>", unsafe_allow_html=True)
     with insight_3:
@@ -532,7 +532,12 @@ def Data_Insight():
         city_text=""" A mayor concentracion de poblacion en las ciudades se denota un gran aumento del CO2 debido
         a las actividades que se realizan en la ciudad como entretenimiento y trabajo"""
         insight_222.markdown(f"<div style='text-align: justify; font-size: 15px;'>{city_text}</div>", unsafe_allow_html=True)
-    insight_333.empty()
+    with insight_333:
+        #POBLACION HURBANA
+        insight_333.metric(label="**PEOR DECADA DE C02**", value=f'2000-2010', delta="55% DE LOS ULTIMOS 30 AÑOS", delta_color="off")
+        decade_text=""" Entre 2000 y 2010 se emitio el 55% de CO2 de las ultimas 3 decadas, mas del doble que en las otras 2 decadas analzadas"""
+        insight_333.markdown(f"<div style='text-align: justify; font-size: 15px;'>{city_text}</div>", unsafe_allow_html=True)
+    
     empty222.empty()
     st.write("##")
     st.write("##")
