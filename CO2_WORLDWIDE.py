@@ -516,17 +516,19 @@ def Data_Insight():
     empty111.empty()
     with insight_111:
         #GDP
+        insight_111.metric(label="**Correlacion GDP&CO2**", value=f'^GDP  =  ^CO2', delta="A MAYOR GDP MAS EMISION CO2", delta_color="off")
         gdp_text="""Hay una relacion lineal entre GDP y CO2. Esto se da principalmente por que 
         las economias mas fuertes son a la vez las mas activas y necesita de mas energia la cual 
         generas por metodos envencionales como carbon y gas."""
         insight_111.markdown(f"<div style='text-align: justify; font-size: 15px;'>{gdp_text}</div>", unsafe_allow_html=True)
-        insight_111.metric(label="**Correlacion GDP&CO2**", value=f'^GDP  =  ^CO2', delta="A MAYOR GDP MAS EMISION CO2", delta_color="off")
         #insight_111.markdown("Hay una relacion lineal entre GDP y CO2. Esto se da principalmente por que las economias mas fuertes son a la vez las mas activas y necesita de mas energia la cual generas por metodos envencionales como carbon y gas.")
 
     with insight_222:
-        #GDP
-        centrar_texto_css = """<style>.centrar-texto {text-align: center;}</style>"""
-        insight_222.markdown(centrar_texto_css, unsafe_allow_html=True)
+        #POBLACION HURBANA
+        insight_222.metric(label="**POBLACIN HURBANA**", value=f'^ +👪 = +CO2', delta="+ CONSCETRACION HURBANA + CO2", delta_color="off")
+        city_text=""" A mayor concentracion de poblacion en las ciudades se denota un gran aumento del CO2 debido
+        a las actividades que se realizan en la ciudad como entretenimiento y trabajo"""
+        insight_222.markdown(f"<div style='text-align: justify; font-size: 15px;'>{city_text}</div>", unsafe_allow_html=True)
     insight_333.empty()
     empty222.empty()
     #EXPANCION CODIGO
