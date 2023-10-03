@@ -366,10 +366,9 @@ def Data_Insight():
     colu1, colu2 =st.columns(2)
     correlat="""Se ha identificado que 3 variables están fuertemente correlacionadas con las emisiones
       de CO2."""
-    correlat2="""
-        - A mayor GDP mayor emision de CO2.
-        - A mayor poplacion x pais, mayor emision de CO2.
-        - A mayor cocentracion urbana es aun mayor la emision de CO2."""
+    correlat2="""- A mayor GDP mayor emision de CO2."""
+    correlat4="""- A mayor poplacion x pais, mayor emision de CO2."""
+    correlat5="""- A mayor cocentracion urbana es aun mayor la emision de CO2."""
 
     correlat3="""Por razones prácticas, solo se analizará la relación entre CO2 y el Producto Interno Bruto (GDP)
         de un país utilizando un Modelo de Regresión Lineal. Además, se evaluará la precisión del modelo
@@ -378,6 +377,8 @@ def Data_Insight():
     colu1.write("##")
     colu1.markdown(f"<div style='text-align: justify; font-size: 20px;'>{correlat}</div>", unsafe_allow_html=True)
     colu1.markdown(f"<div style='text-align: left; font-size: 20px;'>{correlat2}</div>", unsafe_allow_html=True)
+    colu1.markdown(f"<div style='text-align: left; font-size: 20px;'>{correlat4}</div>", unsafe_allow_html=True)
+    colu1.markdown(f"<div style='text-align: left; font-size: 20px;'>{correlat5}</div>", unsafe_allow_html=True)
     colu1.markdown(f"<div style='text-align: justify; font-size: 20px;'>{correlat3}</div>", unsafe_allow_html=True)
     
     colu2.image(r"Images/White Gradient Creative Professional Modern Business Company Corporate Presentation Template.png",width=350)
