@@ -507,6 +507,7 @@ def Data_Insight():
         centrar_texto_css = """<style>.centrar-texto {text-align: center;}</style>"""
         insight_3.markdown(centrar_texto_css, unsafe_allow_html=True)
         insight_3.metric(label="**COUNTRIES WHO MAKE 80/20**", value="30" , delta="OF CO2 WORLDWIDE",delta_color="off")
+        insight_3.markdown("El 80% de la emision de CO2 mundial esta consentrada en 30 paises.")
     empty2.empty()
     st.write("##")
     #EXPANCION CODIGO
@@ -532,7 +533,8 @@ def Data_Insight():
         centrar_texto_css = """<style>.centrar-texto {text-align: center;}</style>"""
         insight_222.markdown(centrar_texto_css, unsafe_allow_html=True)
         insight_222.metric(label="**GDP & CO2**", value=f'^GDP = ^ CO2', delta="A MAYOR GDP MAS EMISION CO2", delta_color="off")
-
+    insight_333.empty()
+    empty222.empty()
 
     
 
