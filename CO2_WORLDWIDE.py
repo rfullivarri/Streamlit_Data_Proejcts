@@ -492,7 +492,7 @@ def Data_Insight():
         #Countrys
         centrar_texto_css = """<style>.centrar-texto {text-align: center;}</style>"""
         insight_1.markdown(centrar_texto_css, unsafe_allow_html=True)
-        insight_1.metric(label="**COUNTRIES**", value=f'{len(df["Country"].unique())}', delta="FOR ANALYSIS", delta_color="off")
+        insight_1.metric(label="**COUNTRIES**", value=f'   🌎{len(df["Country"].unique())}', delta="FOR ANALYSIS", delta_color="off")
 
     with insight_2:
         #CO2 (mT)
@@ -506,7 +506,7 @@ def Data_Insight():
         #80/20
         centrar_texto_css = """<style>.centrar-texto {text-align: center;}</style>"""
         insight_3.markdown(centrar_texto_css, unsafe_allow_html=True)
-        insight_3.metric(label="**COUNTRIES WHO MAKE 80/20**", value="30" , delta="OF CO2 WORLDWIDE",delta_color="off")
+        insight_3.metric(label="**COUNTRIES WHO MAKE 80/20**", value="   🗺 30" , delta="OF CO2 WORLDWIDE",delta_color="off")
         insight_3.markdown(f"<div style='text-align: justify; font-size: 15px;'>El 80% de la emision de CO2 mundial esta consentrada en 30 paises.</div>",unsafe_allow_html=True)
     empty2.empty()
     st.write("##")
@@ -516,7 +516,7 @@ def Data_Insight():
     empty111.empty()
     with insight_111:
         #GDP
-        insight_111.metric(label="**Correlacion GDP&CO2**", value=f'^GDP  =  ^CO2', delta="A MAYOR GDP MAS EMISION CO2", delta_color="off")
+        insight_111.metric(label="**Correlacion GDP&CO2**", value=f' ➕💰 = ➕CO2', delta="A MAYOR GDP MAS EMISION CO2", delta_color="off")
         gdp_text="""Hay una relacion lineal entre GDP y CO2. Esto se da principalmente por que 
         las economias mas fuertes son a la vez las mas activas y necesita de mas energia la cual 
         generas por metodos envencionales como carbon y gas."""
@@ -525,7 +525,7 @@ def Data_Insight():
 
     with insight_222:
         #POBLACION HURBANA
-        insight_222.metric(label="**POBLACIN HURBANA**", value=f'^ +👪 = +CO2', delta="+ CONSCETRACION HURBANA + CO2", delta_color="off")
+        insight_222.metric(label="**POBLACIN HURBANA**", value=f' ➕🚻 = ➕CO2', delta="+ CONSCETRACION HURBANA + CO2", delta_color="off")
         city_text=""" A mayor concentracion de poblacion en las ciudades se denota un gran aumento del CO2 debido
         a las actividades que se realizan en la ciudad como entretenimiento y trabajo"""
         insight_222.markdown(f"<div style='text-align: justify; font-size: 15px;'>{city_text}</div>", unsafe_allow_html=True)
