@@ -399,7 +399,7 @@ def Data_Insight():
     st.write("##")
 
 #ARMADO DEL MODELO
-    st.subheader("Utilizando la libreria de Scikit-Leard realizamos el Modelos")
+    st.subheader("Utilizando la libreria de Scikit-Leard se realiza el Modelos")
     code_style = """
             <style>.stApp pre {background-color: #2E2E2E !important; /* Color de fondo oscuro */
                     color: #FFFFFF !important; /* Color del texto blanco */}
@@ -409,9 +409,9 @@ def Data_Insight():
     st.code(regression_model,language="python")
     st.write("##")
 
-#ANALISIS DE RESIDUOS
-    st.subheader("Luego tenemos que analizar si el modelo esta alineado a la realidad")
-    st.write("Para eso primero vemos a realizar un análisis de residuos. Los residuos son la diferencia entre los valores observados y los valores predichos por el modelo. Puedes obtener los residuos de la siguiente manera:")
+#ANALISIS DE VARIACIONES
+    st.subheader("Luego se analiza si el modelo esta alineado a la realidad")
+    st.write("Para eso primero se realiza un análisis variaciones. Las variaciones son la diferencia entre los valores observados y los valores predichos por el modelo. Se puede obtenerlas de la siguiente manera:")
     code_style = """
             <style>.stApp pre {background-color: #2E2E2E !important; /* Color de fondo oscuro */
                     color: #FFFFFF !important; /* Color del texto blanco */}
@@ -419,16 +419,17 @@ def Data_Insight():
                      """
     st.markdown(code_style, unsafe_allow_html=True)
     st.code("residuos = y - modelo.predict(x)",language="python")
-    st.write("Donde y son los valores observados (CO2 en este caso) y modelo.predict(x) son las predicciones del modelo para los mismos valores de x (GDP en este caso).")
+    st.write("Donde *Y* son los valores observados (CO2 en este caso) y *modelo.predict(x)* son las predicciones del modelo para los mismos valores de *X* (GDP en este caso).")
     st.write("##")
     st.write("##")
 
 #GRAFICO 3 HISTOGRAMA
     colres1,colres2 = st.columns(2)
-    colres1.subheader("Despues graficamos los residuos")
-    histograf="""Una forma común de evaluar la calidad del ajuste es graficar los residuos.
-              Puedes usar un histograma para visualizar la distribución de los residuos.
-              Un patrón ideal sería que los residuos estén distribuidos de manera aleatoria alrededor de cero y no muestren ningún patrón evidente.
+    colres1.subheader("Despues se grafica las variaciones")
+    histograf="""Una forma común de evaluar la calidad del ajuste es graficar las variaciones.
+              Se puede usar un histograma para visualizar la distribución de las variaciones.
+              Un patrón no ideal sería que las variaciones estén distribuidos de manera aleatoria alrededor de cero y no muestren ningún patrón evidente. En este caso
+              el se observa claramente el patron de una curva de distribucion normal o gausseana.
                     """
     colres1.write("##")
     colres1.write("##")
@@ -458,17 +459,17 @@ def Data_Insight():
                  """
         st.markdown(code_style, unsafe_allow_html=True)
         st.code(histograma_code,language="python")
-    rtohisto="""Podemos observar en el histograma que no hay una gran dispersion en los datos, pero esto no
+    rtohisto="""Se observa en el histograma que no hay una gran dispersion en los datos, pero esto no
                 es suficiente para considerar el modelo alineado a la realidad"""
     st.markdown(f"<div style='text-align: justify; font-size: 20px;'>{rtohisto}</div>", unsafe_allow_html=True)
     st.write("##")
     st.write("##")
 
 #COHEFICIENTE DE DETERMINACION R2
-    st.subheader("Ahora evaluamos la estadistia de calidad de ajuste")
+    st.subheader("Ahora se evalúa la de calidad de ajuste de las variaciones")
     ajuste="""Evaluar estadísticas de calidad del ajuste, como el coeficiente de determinación (R^2).
              Esta métricas te darán una idea de cuánta variabilidad de los 
-                datos es explicada por el modelo y cuán bien se ajusta a los datos."""
+                datos es explicada por el modelo y cuán bien se ajusta a los datos en un valor porcentual"""
     st.markdown(f"<div style='text-align: justify; font-size: 20px;'>{ajuste}</div>", unsafe_allow_html=True)
     code_style = """
             <style>.stApp pre {background-color: #2E2E2E !important; /* Color de fondo oscuro */
@@ -485,7 +486,7 @@ def Data_Insight():
     st.write("##")
     coefi="""Un coeficiente de determinación (R^2) de 0.8167 es relativamente alto, 
     lo que sugiere que tu modelo de regresión lineal explica una gran parte de la variabilidad en los datos.
-    Esto nos permite considerar el modelo aceptable para predecir datos"""
+    Esto permite considerar el modelo aceptable para predecir datos"""
     st.markdown(f"<div style='text-align: justify; font-size: 20px;'>{coefi}</div>", unsafe_allow_html=True)
     st.write("##")
     st.subheader("Estimacion de la emision de CO2 apartir del GDP de un pais")
@@ -495,7 +496,7 @@ def Data_Insight():
     st.write("##")
     st.write("##")
     
-    nuevo_GDP = st.number_input("Ingrese el nuevo valor de GDP en millones de UDS")
+    nuevo_GDP = st.number_input("Ingrese el nuevo valor de GDP en millones de USD")
 
 
     if st.button("Realizar predicción de CO2"):
