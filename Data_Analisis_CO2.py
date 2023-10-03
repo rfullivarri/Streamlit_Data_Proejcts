@@ -161,7 +161,7 @@ primeros_insights="""
     st.write("##")
     st.header(" Conclusiones & Insights 👨‍💻")
     st.write("##")
-    
+
     empty1,insight_1, insight_2, insight_3, empty2= st.columns((0.5,2,2,2,0.5))
     empty1.empty()
     style_metric_cards( background_color = "#66806A",
@@ -312,6 +312,7 @@ regression_model="""
                     modelo.fit(x, y)"""
 
 histograma_code="""
+
 histogram_fig = px.histogram(x=residuos, 
                             nbins=30, 
                             color_discrete_sequence=["#FFF1AF"])
@@ -325,6 +326,7 @@ histogram_fig = px.histogram(x=residuos,
     st.plotly_chart(histogram_fig, use_container_width=True)
 
         """
+
 ajuste_code="""r2 = r2_score(y, modelo.predict(x))
 
 print(f"Coeficiente de determinación (R^2): {r2}")
