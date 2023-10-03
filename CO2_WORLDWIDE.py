@@ -507,9 +507,28 @@ def Data_Insight():
         centrar_texto_css = """<style>.centrar-texto {text-align: center;}</style>"""
         insight_3.markdown(centrar_texto_css, unsafe_allow_html=True)
         insight_3.metric(label="**COUNTRIES WHO MAKE 80/20**", value="30" , delta="OF CO2 WORLDWIDE",delta_color="off")
-        insight_3.markdown("El 80% de la emision de CO2 mundial esta consentrada en 30 paises.")
+        insight_3.markdown(f"<div style='text-align: justify; font-size: 15px;'>El 80% de la emision de CO2 mundial esta consentrada en 30 paises.</div>")
     empty2.empty()
     st.write("##")
+    
+
+    empty111,insight_111, insight_222, insight_333, empty222= st.columns((0.5,2,2,2,0.5))
+    empty111.empty()
+    with insight_111:
+        #GDP
+        gdp_text="""Hay una relacion lineal entre GDP y CO2. Esto se da principalmente por que 
+        las economias mas fuertes son a la vez las mas activas y necesita de mas energia la cual 
+        generas por metodos envencionales como carbon y gas."""
+        insight_111.markdown(f"<div style='text-align: justify; font-size: 15px;'>{gdp_text}</div>", unsafe_allow_html=True)
+        #insight_111.markdown("Hay una relacion lineal entre GDP y CO2. Esto se da principalmente por que las economias mas fuertes son a la vez las mas activas y necesita de mas energia la cual generas por metodos envencionales como carbon y gas.")
+
+    with insight_222:
+        #GDP
+        centrar_texto_css = """<style>.centrar-texto {text-align: center;}</style>"""
+        insight_222.markdown(centrar_texto_css, unsafe_allow_html=True)
+        insight_222.metric(label="**GDP & CO2**", value=f'^GDP = ^ CO2', delta="A MAYOR GDP MAS EMISION CO2", delta_color="off")
+    insight_333.empty()
+    empty222.empty()
     #EXPANCION CODIGO
     with st.expander("Ver Codigo </> Insight"):
         code_style = """
@@ -519,23 +538,6 @@ def Data_Insight():
                      """
         st.markdown(code_style, unsafe_allow_html=True)
         st.code(primeros_insights,language="python")
-
-    empty111,insight_111, insight_222, insight_333, empty222= st.columns((0.5,2,2,2,0.5))
-    empty111.empty()
-    with insight_111:
-        #GDP
-        centrar_texto_css = """<style>.centrar-texto {text-align: center;}</style>"""
-        insight_111.markdown(centrar_texto_css, unsafe_allow_html=True)
-        insight_111.text(body="Hay una relacion lineal entre GDP y CO2. Esto se da principalmente por que las economias mas fuertes son a la vez las mas activas y necesita de mas energia la cual generas por metodos envencionales como carbon y gas.")
-
-    with insight_222:
-        #GDP
-        centrar_texto_css = """<style>.centrar-texto {text-align: center;}</style>"""
-        insight_222.markdown(centrar_texto_css, unsafe_allow_html=True)
-        insight_222.metric(label="**GDP & CO2**", value=f'^GDP = ^ CO2', delta="A MAYOR GDP MAS EMISION CO2", delta_color="off")
-    insight_333.empty()
-    empty222.empty()
-
     
 
 
