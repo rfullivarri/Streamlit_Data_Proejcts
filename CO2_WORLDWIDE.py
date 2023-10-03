@@ -376,9 +376,11 @@ def Data_Insight():
     colu1.write("##")
     colu1.write("##")
     colu1.markdown(f"<div style='text-align: justify; font-size: 20px;'>{correlat}</div>", unsafe_allow_html=True)
+    colu1.write("##")
     colu1.markdown(f"<div style='text-align: left; font-size: 20px;'>{correlat2}</div>", unsafe_allow_html=True)
     colu1.markdown(f"<div style='text-align: left; font-size: 20px;'>{correlat4}</div>", unsafe_allow_html=True)
     colu1.markdown(f"<div style='text-align: left; font-size: 20px;'>{correlat5}</div>", unsafe_allow_html=True)
+    colu1.write("##")
     colu1.markdown(f"<div style='text-align: justify; font-size: 20px;'>{correlat3}</div>", unsafe_allow_html=True)
     
     colu2.image(r"Images/White Gradient Creative Professional Modern Business Company Corporate Presentation Template.png",width=350)
