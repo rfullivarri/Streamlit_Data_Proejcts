@@ -533,10 +533,8 @@ def About_Me():
             Soy Ramiro Fernández de Ullivarri, un profesional con experiencia sólida en Gestión de Proyectos. Mi enfoque no se limita únicamente a las habilidades técnicas;
               también tengo una comprensión profunda de las necesidades del equipo y una visión clara de los objetivos empresariales.
             Me apasiona mantenerme actualizado con las últimas tecnologías que impactan en el mercado, siempre buscando innovaciones 
-            que simplifiquen nuestras vidas y mejoren la eficiencia de nuestras conexiones.
-
-
-            """
+            que simplifiquen nuestras vidas y mejoren la eficiencia de nuestras conexiones."""
+    
     aboutmetext2="""Como Ingeniero Industrial con un enfoque en el Análisis de Datos, hace un tiempo me eh enfocado 
      en explorar el emocionante mundo de la programación en Python y el análisis de datos. 
       Estoy emocionado por las oportunidades futuras y confío en que mi experiencia y dedicación seguirán 
