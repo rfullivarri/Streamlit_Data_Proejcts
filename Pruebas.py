@@ -13,20 +13,45 @@ from Data_Analisis_CO2 import data_pre_code, primeros_insights, barchart_country
 from sklearn.metrics import r2_score, mean_squared_error
 
 
-df= pd.read_csv(r"CO2_WORLDWIDE_90_23.csv")
 
-#print(df['Country'][0],df['GDP'][0])
-x = df['GDP'].values.reshape(-1, 1) # Variables independientes 
-y = df['Co2-Emissions 2023'].values # Variables dependiente
+personas=['rulo','cande','rodri','ari','ali','marco','nico','coni','santi','cati']
+actividad=[2,2,2,1,2,2,2,1,0,1]
 
-modelo = LinearRegression()
-modelo.fit(x, y)
 
-nuevo_GDP = np.array([[990000000]])  # Ejemplo de un nuevo valor de GDP en millones de pesos
-prediccion_CO2 = modelo.predict(nuevo_GDP)
-prediccion_CO2 = round(prediccion_CO2[0], 5)  # Redondea a dos decimales
+grupo= dict(zip(personas,actividad))
 
-print(f"Predicción de CO2 en millones de toneladas: {prediccion_CO2}")
+karting= []
+bowling= []
+ninguna=[]
+for k, v in grupo.items():
+    if v ==2:
+        karting.append(k)
+        bowling.append(k)
+    elif v == 1:
+      karting.append(k)
+    else:
+       ninguna.append(k)
+
+
+print(f'Karting: {karting} \n')
+print(f'Bowling: {bowling}\n')
+print(f'None: {ninguna}')
+
+
+# df= pd.read_csv(r"CO2_WORLDWIDE_90_23.csv")
+
+# #print(df['Country'][0],df['GDP'][0])
+# x = df['GDP'].values.reshape(-1, 1) # Variables independientes 
+# y = df['Co2-Emissions 2023'].values # Variables dependiente
+
+# modelo = LinearRegression()
+# modelo.fit(x, y)
+
+# nuevo_GDP = np.array([[990000000]])  # Ejemplo de un nuevo valor de GDP en millones de pesos
+# prediccion_CO2 = modelo.predict(nuevo_GDP)
+# prediccion_CO2 = round(prediccion_CO2[0], 5)  # Redondea a dos decimales
+
+# print(f"Predicción de CO2 en millones de toneladas: {prediccion_CO2}")
 
 #Evaluamos los residuos para saber si el modelo esta alineado a la realidad.
 # residuos = y - modelo.predict(x)

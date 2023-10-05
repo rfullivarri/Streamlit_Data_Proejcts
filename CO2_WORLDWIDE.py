@@ -73,13 +73,16 @@ def Home():
         st_lottie(lottie4,width=150)
     #home.title("CO2 WORDLWIDE ANALSIS 🌎")
     st.header("Por que")
+    columna1,columna2=st.columns(2)
     descripcion="""CO2 WORLDWIDE tiene como mision explorar la situacion actual del dioxido
       de carbono en el mundo, un gas que afecta directamente al planeta. Con la mirada puesta en la 
-      increible cifra de mas de 40.000 millones  de toneladas de CO2 emitidas anualmente, el objetivo 
-      principal de este analisis es destacar la importancia de comprender estos numeros atraves de datos 
+      increible cifra de mas de 40.000 millones  de toneladas de CO2 emitidas anualmente, 
+      principal de este analisis es destacar la importancia de"""
+    descripcion2=""" comprender estos numeros atraves de datos 
       y analisis solidos. Se busca adentrarse en el facinante mundo de los datos para revelar patrones y 
-      tendencias que aclararan la problemantica del CO2 y su impracto en el entorno"""
-    st.markdown(f'<div style="text-align: justify">{descripcion}</div>',unsafe_allow_html=True)
+      tendencias que aclararan la problemantica del CO2 y su impracto en el entorno."""
+    columna1.markdown(f'<div style="text-align: justify; font-size: 18px">{descripcion}</div>',unsafe_allow_html=True)
+    columna2.markdown(f'<div style="text-align: justify; font-size: 18px">{descripcion2}</div>',unsafe_allow_html=True)
     st.write("##")
     kaggle1,pytt2,text21= st.columns((1,0.5,4))
     kaggle1.image(r"Images/kaggle_logo_icon_168474.png")
@@ -88,9 +91,9 @@ def Home():
     k_y_text="""Se utilizará una base de datos de Kaggle y Python como lenguaje de programación para llevar
       a cabo el análisis de las emisiones de CO2 de varios países. Esta combinación permitirá adquirir
         experiencia y mejorar habilidades en ciencia de datos, al mismo tiempo que enriquecerá el portafolio 
-        profesional
+        profesional.
                 """
-    text21.markdown(f'<div style="text-align: justify">{k_y_text}</div>',unsafe_allow_html=True)
+    text21.markdown(f'<div style="text-align: justify; font-size: 18px">{k_y_text}</div>',unsafe_allow_html=True)
     
     st.write("---")
 
@@ -200,11 +203,14 @@ def Data_Insight():
     fig = px.bar(df_co2_23_by_country, x="Co2-Emissions 2023", y=df_co2_23_by_country.index, orientation="h",
              text="Co2-Emissions 2023", color_discrete_sequence=["#FFF1AF"])
     #Personaliza la apariencia del gráfico
-    fig.update_layout(  xaxis_title="Co2-Emissions 2023 (Tn)",
+    fig.update_layout(  xaxis_title="Co2-Emissions 2023 (MTn)",
                         yaxis_title="Country",
                         paper_bgcolor="rgba(0,0,0,0)",  # Fondo transparente
                         plot_bgcolor="rgba(0,0,0,0)",   # Fondo transparente
-                        font=dict(color="white"))       # Color de las etiquetas en blanco
+                        font=dict(color="white"),
+                        xaxis=dict(title_font=dict(size=20), tickfont=dict(size=18)),  # Tamaño de fuente del eje X
+                        yaxis=dict(title_font=dict(size=20), tickfont=dict(size=18)))  
+    #fig.update_traces(textfont_size=18)
     #Muestra el gráfico en Streamlit
     column_1.plotly_chart(fig, use_container_width=True)
 #GRAFICO2
@@ -216,11 +222,13 @@ def Data_Insight():
     fig2 = px.bar(df_co2_23_by_country, x="Co2-Emissions 2023", y=df_co2_23_by_country.index, orientation="h",
              text="Co2-Emissions 2023", color_discrete_sequence=["#FFF1AF"])
     #Personaliza la apariencia del gráfico
-    fig2.update_layout(  xaxis_title="Co2-Emissions 2023 (Tn)",
+    fig2.update_layout(  xaxis_title="Co2-Emissions 2023 (MTn)",
                         yaxis_title="Country",
                         paper_bgcolor="rgba(0,0,0,0)",  # Fondo transparente
                         plot_bgcolor="rgba(0,0,0,0)",   # Fondo transparente
-                        font=dict(color="white"))       # Color de las etiquetas en blanco
+                        font=dict(color="white"),
+                        xaxis=dict(title_font=dict(size=20), tickfont=dict(size=18)),  # Tamaño de fuente del eje X
+                        yaxis=dict(title_font=dict(size=20), tickfont=dict(size=18)))      # Color de las etiquetas en blanco
     # Muestra el gráfico en Streamlit
     column_2.plotly_chart(fig2, use_container_width=True)
     #EXPANCION CODIGO
@@ -267,7 +275,9 @@ def Data_Insight():
                         yaxis_title="CO2",
                         paper_bgcolor="rgba(0,0,0,0)",  
                         plot_bgcolor="rgba(0,0,0,0)",   
-                        font=dict(color="white"))       
+                        font=dict(color="white"),
+                        xaxis=dict(title_font=dict(size=20), tickfont=dict(size=18)),  # Tamaño de fuente del eje X
+                        yaxis=dict(title_font=dict(size=20), tickfont=dict(size=18)))       
 
     st.plotly_chart(fig3, use_container_width=True)
     #EXPANCION CODIGO
@@ -348,7 +358,7 @@ def Data_Insight():
     st.write("##")
 
 #MODELO DE REGRESION LINEAL
-    st.markdown("<h2 style='text-align: left; font-size: 35px;'>Modelo de Regresion Lineal 🖇</h2>", unsafe_allow_html=True)
+    st.markdown("<h2 style='text-align: left; font-size: 30px;'>Modelo de Regresion Lineal 🖇</h2>", unsafe_allow_html=True)
     st.write("##")
     colmol1,colmol2= st.columns(2)
     with colmol1:
@@ -508,7 +518,7 @@ def Data_Insight():
     empty2.empty()
     
     st.divider()
-    
+
     empty111,insight_111, insight_222, insight_333, empty222= st.columns((0.5,2,2,2,0.5))
     empty111.empty()
     with insight_111:
